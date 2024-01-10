@@ -5,6 +5,7 @@ import { ISeasonData, TGenresFor } from "../../../types/models";
 import SeasonItem from "../SeasonItem/SeasonItem";
 import style from './TVSeasons.module.css'
 import Loader from "../../Loader/Loader";
+import MyError from "../../Error/MyError";
 
 const TVSeasons = ({ type }: {type: TGenresFor}) => {
   const { id } = useParams();
@@ -23,6 +24,8 @@ const TVSeasons = ({ type }: {type: TGenresFor}) => {
   return (
     <div>
       {searchLoader && <Loader />}
+      {searchError && <MyError />}
+      
       {searchResult && (
         <div className={style.seasons_container}>
           {"seasons" in searchResult && searchResult.seasons.map((season: ISeasonData) => {

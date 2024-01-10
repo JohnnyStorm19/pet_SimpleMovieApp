@@ -10,6 +10,7 @@ import { useSearchBy } from "../../hooks/useSearchBy";
 import PageHeader from "../../components/UI/PageHeader/PageHeader";
 import style from "./TVseriesPage.module.css";
 import Loader from "../../components/Loader/Loader";
+import MyError from "../../components/Error/MyError";
 
 const TVseriesPage = () => {
   const type = "tvSeries";
@@ -76,6 +77,8 @@ const TVseriesPage = () => {
   return (
     <div className={style.tv_container}>
       {searchLoader && <Loader />}
+      {searchError && <MyError />}
+
       <PageHeader />
       <header className={style.header}>
         <h2 className={style.pageTitle}>Serials / TV-shows</h2>

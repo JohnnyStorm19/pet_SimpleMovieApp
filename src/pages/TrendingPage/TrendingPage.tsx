@@ -2,12 +2,11 @@ import Pagination from "../../components/UI/Pagination/Pagination";
 import { useTrendings } from "../../hooks/useTrendings";
 import { useState } from "react";
 import ItemCardsList from "../../components/ItemCardsList/ItemCardsList";
-// import Loader from "../components/Loader/Loader";
-// import MyError from "../components/Error/MyError";
 import SearchSwitcherNew from "../../components/UI/SearchSwitcherNew/SearchSwitcherNew";
 import style from "./TrendingPage.module.css";
 import PageHeader from "../../components/UI/PageHeader/PageHeader";
 import Loader from "../../components/Loader/Loader";
+import MyError from "../../components/Error/MyError";
 
 type TPeriodSwitcher = "week" | "day";
 type TContentSwitcher = "all" | "movie" | "tv";
@@ -47,7 +46,8 @@ const TrendingPage = () => {
   return (
     <>
       {isLoading && <Loader />}
-      {/* {error && <MyError />} */}
+      {error && <MyError />}
+      
       <div className={style.trending_container}>
         <PageHeader />
         <header className={style.header}>

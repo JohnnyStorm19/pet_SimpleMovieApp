@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useGetCredits } from "../../hooks/useGetCredits";
 import CrewJobsGroup from "./CrewJobsGroup";
 import Loader from "../Loader/Loader";
+import MyError from "../Error/MyError";
 
 const Crew = ({ type }: { type: TGenresFor }) => {
   const { id } = useParams();
@@ -22,6 +23,8 @@ const Crew = ({ type }: { type: TGenresFor }) => {
   return (
     <div>
       {creditsLoader && <Loader />}
+      {creditsError && <MyError />}
+      
       {credits && (
         <CrewJobsGroup crewArray={credits.crew as ICreditsCrew[]}/>
       )}

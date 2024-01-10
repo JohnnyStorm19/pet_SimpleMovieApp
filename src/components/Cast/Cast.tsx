@@ -5,6 +5,8 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import style from "./Cast.module.css";
 import CastItem from "./CastItem";
 import TVCastItem from "./TVCastItem";
+import Loader from "../Loader/Loader";
+import MyError from "../Error/MyError";
 
 const Cast = ({ type }: { type: TGenresFor }) => {
   const { id } = useParams();
@@ -24,6 +26,10 @@ const Cast = ({ type }: { type: TGenresFor }) => {
 
   return (
     <div className={type === "movie" ? style.details_wrapper : style.details_wrapper_TV}>
+      
+      {creditsLoader && <Loader />}
+      {creditsError && <MyError />}
+
       {credits && (
         <>
           {credits.cast.map((person) => {

@@ -4,6 +4,7 @@ import { useSearchById } from "../../hooks/useSearchById";
 import { ITvCard_Single, TGenresFor } from "../../types/models";
 import DetailsGroup from "./DetailsGroup";
 import Loader from "../Loader/Loader";
+import MyError from "../Error/MyError";
 
 const TVDetails = ({type}: {type: TGenresFor}) => {
     const { id } = useParams();
@@ -22,6 +23,8 @@ const TVDetails = ({type}: {type: TGenresFor}) => {
     return (
       <div>
         {searchLoader && <Loader />}
+        {searchError && <MyError />}
+
         {searchResult && (
           <DetailsGroup detailsArray={searchResult as ITvCard_Single}/>
         )}

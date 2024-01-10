@@ -9,7 +9,7 @@ export const useGetImages = (
   shouldSearch: boolean,
   setShouldSearch: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
-  const [images, setImages] = useState<any | null>(null);
+  const [images, setImages] = useState<unknown | null>(null);
   const [imagesLoader, setImagesLoader] = useState(false);
   const [imagesError, setImagesError] = useState(false);
 

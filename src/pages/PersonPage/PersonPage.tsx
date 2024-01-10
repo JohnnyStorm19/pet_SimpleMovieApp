@@ -12,6 +12,7 @@ import PageHeader from "../../components/UI/PageHeader/PageHeader";
 import PersonBiography from "../../components/PersonBiography/PersonBiography";
 import { ICombinedCast, ICombinedCrew } from "../../types/models";
 import Loader from "../../components/Loader/Loader";
+import MyError from "../../components/Error/MyError";
 
 type TContentType = "movie" | "tv" | "all";
 type TProjectTime = "newest" | "earliest" | "";
@@ -65,6 +66,8 @@ const PersonPage = () => {
       
       {searchLoader && <Loader />}
       {creditsLoader && <Loader />}
+      {searchError && <MyError />}
+      {creditsError && <MyError />}
 
       {searchResult && "name" in searchResult && (
         <header className={style.person_name_header}>

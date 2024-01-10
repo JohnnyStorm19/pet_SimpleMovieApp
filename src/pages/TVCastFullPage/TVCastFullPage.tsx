@@ -6,6 +6,7 @@ import style from './TVCastFullPage.module.css'
 import PageHeader from "../../components/UI/PageHeader/PageHeader";
 import { ICreditsSerialsCast } from "../../types/models";
 import Loader from "../../components/Loader/Loader";
+import MyError from "../../components/Error/MyError";
 
 const TVCastFullPage = () => {
   const type = 'aggregateTV';
@@ -22,6 +23,8 @@ const TVCastFullPage = () => {
     <div className={style.tvCast_container}>
       <PageHeader />
       {creditsLoader && <Loader />}
+      {creditsError && <MyError />}
+
       <h1 className={style.title}>Full Cast</h1>
       {credits && (
         <div className={style.full_cast_cards}>

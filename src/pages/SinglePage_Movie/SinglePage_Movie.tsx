@@ -9,6 +9,7 @@ import Crew from "../../components/Crew/Crew";
 import PageHeader from "../../components/UI/PageHeader/PageHeader";
 import { IRecievedMovieCard_SingleData } from "../../types/models";
 import Loader from "../../components/Loader/Loader";
+import MyError from "../../components/Error/MyError";
 
 const SinglePage_Movie = () => {
   const type = "movie";
@@ -51,6 +52,9 @@ const SinglePage_Movie = () => {
       <PageHeader />
       {searchLoader && <Loader />}
       {creditsLoader && <Loader />}
+      {searchError && <MyError />}
+      {creditsError && <MyError />}
+      
       {searchResult && credits && (
         <MovieCard_Single searchResult={searchResult as IRecievedMovieCard_SingleData} credits={credits} />
       )}

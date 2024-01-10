@@ -11,6 +11,7 @@ import { useSearchBy } from "../../hooks/useSearchBy";
 import style from './MoviePage.module.css'
 import PageHeader from "../../components/UI/PageHeader/PageHeader";
 import Loader from "../../components/Loader/Loader";
+import MyError from "../../components/Error/MyError";
 
 const MoviePage = () => {
   const type = "movie";
@@ -77,6 +78,8 @@ const MoviePage = () => {
   return (
     <div className={style.moviePage_container}>
       {searchLoader && <Loader />}
+      {searchError && <MyError />}
+
       <PageHeader />
       <header className={style.header}>
         <h2 className={style.pageTitle}>Movies</h2>

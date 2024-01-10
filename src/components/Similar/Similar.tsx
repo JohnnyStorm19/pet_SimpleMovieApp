@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useGetSimilar } from "../../hooks/useGetSimilar";
 
 import ItemCardsList from "../ItemCardsList/ItemCardsList";
+import Loader from "../Loader/Loader";
+import MyError from "../Error/MyError";
 const Similar = () => {
   const [shouldSearch, setShouldSearch] = useState(true);
     const location = useLocation();
@@ -25,6 +27,9 @@ const Similar = () => {
   }
   return (
     <div className={style.similar_container}>
+      {searchLoader && <Loader />}
+      {searchError && <MyError />}
+
         {searchResult && (
             <ItemCardsList mainType={mainType} recievedData={searchResult.results}/>
         )}

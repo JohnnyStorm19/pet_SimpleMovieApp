@@ -10,6 +10,7 @@ import TVSeasons from "../../components/TVDetails/TVSeasons/TVSeasons";
 import PageHeader from "../../components/UI/PageHeader/PageHeader";
 import { ITvCard_Single } from "../../types/models";
 import Loader from "../../components/Loader/Loader";
+import MyError from "../../components/Error/MyError";
 
 const SinglePage_TVSeries = () => {
   const type = "tvSeries";
@@ -60,9 +61,10 @@ const SinglePage_TVSeries = () => {
   return (
     <div className={style.TVSinglePage_container}>
       <PageHeader />
-      
       {searchLoader && <Loader />}
       {creditsLoader && <Loader />}
+      {searchError && <MyError />}
+      {creditsError && <MyError />}
 
       {searchResult && credits && (
         <TvCard_Single searchResult={searchResult as ITvCard_Single} />
