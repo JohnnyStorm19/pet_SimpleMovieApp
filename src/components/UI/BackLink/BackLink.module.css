@@ -1,0 +1,10 @@
+.backLink {
+    position: absolute;
+    left: 0;
+    text-decoration: none;
+    color: #FFFFFF;
+    font-family: var(--btn-font-family);
+}
+.backLink:hover {
+    color: var(--main-font-color)
+}

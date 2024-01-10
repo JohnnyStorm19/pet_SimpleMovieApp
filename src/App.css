@@ -1,0 +1,16 @@
+#root {
+  /* max-width: 1280px; */
+  margin: 0 auto;
+  padding: 2rem;
+  padding-inline: 4rem;
+  text-align: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, p {
+  padding: 0;
+  margin: 0;
+}

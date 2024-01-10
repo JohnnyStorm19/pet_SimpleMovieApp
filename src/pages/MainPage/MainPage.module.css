@@ -1,0 +1,31 @@
+.menu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+.link {
+    text-decoration: none;
+    color: var(--main-font-color);
+}
+.moviesTVLink {
+    font-size: 4rem;
+}
+.trendingLink {
+    font-size: 3rem;
+}
+.divider {
+    text-decoration: none;
+    color: var(--main-font-color);
+    font-size: 4rem;
+}
+
+.link:hover {
+    color: #FFFFFF;
+    transform: scale(1.1);
+}

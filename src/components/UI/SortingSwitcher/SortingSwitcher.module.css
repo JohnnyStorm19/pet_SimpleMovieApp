@@ -1,0 +1,24 @@
+.sortingSwitcher_container {
+    font-family: var(--btn-font-family);
+    color: #FFFFFF;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+
+select {
+    font-family: var(--btn-font-family);
+    border-radius: 5px;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: .8rem;
+}
+
+label:hover {
+    color: var(--main-font-color);
+}

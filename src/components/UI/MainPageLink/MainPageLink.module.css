@@ -1,0 +1,11 @@
+.mainPageLink {
+    text-transform: capitalize;
+    font-family: var(--main-font-family);
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+
+.mainPageLink:hover {
+    color: var(--main-font-color);
+}

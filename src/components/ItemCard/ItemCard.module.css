@@ -1,0 +1,94 @@
+.card__container {
+  position: relative;
+  height: max-content;
+}
+
+.card__container:hover {
+  outline-offset: -3px;
+  outline: 3px solid var(--main-font-color);
+  border-radius: 10px;
+}
+
+.img__container_w300 {
+  background-image: url("https://placehold.co/300x450?text=Poster+Image");
+  width: 300px;
+  height: 450px;
+}
+
+.img__container_w150 {
+  background-image: url("https://placehold.co/150x250?text=Poster+Image");
+  width: 150px;
+  height: 250px;
+}
+
+.img__container_w150 img {
+  width: 150px;
+  height: 250px;
+  border-radius: 10px;
+}
+
+.img__container_w300, .img__container_w150 {
+  border-radius: 10px;
+}
+
+.img__container_w300 img, .img__container_w150 img {
+  border-radius: 10px;
+}
+
+.card__infoTooltip {
+  position: absolute;
+  top: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+
+  display: none;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #E7E7E7;
+  z-index: 100;
+
+  font-family: var(--btn-font-family);
+  color: var(--color-background-primary);
+  font-size: .8rem;
+}
+
+.card__infoTooltip:after {
+  border-left: solid transparent 8px;
+  border-right: solid transparent 8px;
+  border-top: solid #E7E7E7 8px;
+  content: " ";
+  height: 0;
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  transform: translateX(-50%);
+}
+
+.card__infoTooltip::before {
+  border-left: solid transparent 8px;
+  border-right: solid transparent 8px;
+  border-top: solid #E7E7E7 8px;
+  content: " ";
+  height: 0;
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  transform: translateX(-50%);
+}
+
+.active {
+  opacity: 0; 
+  animation-name: fadeIn;
+  animation-duration: 0.3s;
+  animation-timing-function: linear;
+  animation-delay: .7s;
+  animation-fill-mode: forwards; 
+  display: block; 
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1; /* Gradually increase opacity to 1 at the end of the animation */
+  }
+}

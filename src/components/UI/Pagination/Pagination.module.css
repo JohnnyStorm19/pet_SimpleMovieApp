@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0 auto;
+    list-style-type: none;
+
+    font-family: var(--btn-font-family);
+    color: #FFFFFF;
+}
+
+.page {
+    padding: 5px 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.page:hover {
+    color: var(--main-font-color);
+    text-decoration: underline;
+}
+
+.page__selected {
+    color: var(--main-font-color);
+    text-decoration: underline;
+}

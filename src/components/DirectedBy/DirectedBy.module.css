@@ -1,0 +1,33 @@
+.directedBy__container {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    gap: .5rem;
+}
+
+.person__name {
+    cursor: pointer;
+    text-align: start;
+}
+.person__name:hover {
+    color: var(--main-font-color);
+}
+
+@media (max-width: 840px) {
+    .directedBy__container {
+        gap: .4rem;
+    }
+    .directedBy__container {
+        font-size: .7rem;
+    }
+}
+
+@media (max-width: 620px) {
+    .directedBy__container {
+        font-size: .6rem;
+    }
+    .directedBy__container {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

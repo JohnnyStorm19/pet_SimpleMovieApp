@@ -1,0 +1,30 @@
+.profile {
+  text-align: start;
+  font-family: var(--btn-font-family);
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  cursor: pointer;
+  max-width: 140px;
+}
+
+.profile:hover :nth-child(1) {
+  color: var(--main-font-color);
+}
+
+.profile_info {
+  display: flex;
+  flex-direction: column;
+}
+
+.img__container {
+  background-image: url("https://placehold.co/138x175?text=Profile+Image");
+  width: 138px;
+  height: 175px;
+  border-radius: 10px;
+}
+
+.img__container img {
+  border-radius: 10px;
+}

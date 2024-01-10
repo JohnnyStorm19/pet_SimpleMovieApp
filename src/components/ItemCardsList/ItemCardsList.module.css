@@ -1,0 +1,30 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(min-content, 1fr));
+    gap: 2rem;
+    margin: 0 auto;
+}
+
+/* .personPageProjects {
+
+} */
+
+@media (max-width: 1400px) {
+    .container { grid-template-columns: repeat(3, min-content); }
+}
+@media (max-width: 1050px) {
+    .container { grid-template-columns: repeat(2, min-content); }
+}
+@media (max-width: 700px) {
+    .container { grid-template-columns: repeat(1, min-content); }
+}
+
+@media (max-width: 1400px) {
+    .personPageProjects { grid-template-columns: repeat(4, min-content); }
+}
+@media (max-width: 1100px) {
+    .personPageProjects { grid-template-columns: repeat(3, min-content); }
+}
+@media (max-width: 910px) {
+    .personPageProjects { grid-template-columns: repeat(2, min-content); justify-content: center; }
+}

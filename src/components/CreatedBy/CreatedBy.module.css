@@ -1,0 +1,16 @@
+.createdBy_container {
+    text-align: left;
+}
+
+.detail {
+    font-size: 1.3rem;
+    color: var(--main-font-color);
+}
+
+.name {
+    cursor: pointer;
+}
+
+.name:hover {
+    color: var(--main-font-color);
+}

@@ -1,0 +1,114 @@
+.details_wrapper {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+
+  font-family: var(--btn-font-family);
+  font-size: .9rem;
+  color: #FFFFFF;
+}
+
+.details_wrapper_TV {
+  margin-top: 1rem;
+  display: flex;
+  gap: 2rem;
+  padding: 5px 10px;
+
+  font-size: .9rem;
+  overflow-x: scroll;
+}
+
+.detail_person {
+  position: relative;
+  height: max-content;
+  display: flex;
+  padding: 5px;
+  gap: 5px;
+  border: 1px solid #ffffff55;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.detail_person:hover {
+  outline: 2px solid var(--main-font-color);
+}
+
+.detail_character {
+  position: absolute;
+  top: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+
+  display: none;
+  border: 2px solid gray;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: gray;
+  z-index: 100;
+
+  color: white;
+  font-weight: bold;
+  font-size: .8rem;
+}
+
+/* #1 triangle */
+.detail_character:after {
+  border-left: solid transparent 10px;
+  border-right: solid transparent 10px;
+  border-top: solid gray 10px;
+  content: " ";
+  height: 0;
+  position: absolute;
+  left: 50%;
+  bottom: -9px;
+  transform: translateX(-50%);
+}
+
+/* #2 triangle */
+.detail_character:before {
+  border-left: solid transparent 11px;
+  border-right: solid transparent 11px;
+  border-top: solid gray 11px;
+  content: " ";
+  height: 0;
+  position: absolute;
+  left: 50%;
+  bottom: -11px;
+  transform: translateX(-50%);
+}
+
+.active {
+  opacity: 0; /* Start with zero opacity */
+  animation-name: fadeIn;
+  animation-duration: 0.3s;
+  animation-timing-function: linear;
+  animation-delay: 0.7s;
+  animation-fill-mode: forwards; /* Retain styles from the last keyframe after the animation ends */
+  display: block;
+}
+
+.goToFullBtn {
+  min-width: 100px;
+  max-width: 100px;
+  height: 50%;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+
+  text-decoration: none;
+  font-family: var(--btn-font-family);
+  color: #FFFFFF;
+}
+
+.goToFullBtn:hover {
+  color: var(--main-font-color);
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}

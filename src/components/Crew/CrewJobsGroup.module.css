@@ -1,0 +1,34 @@
+.crewJobs__container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+    font-family: var(--btn-font-family);
+    color: #FFFFFF;
+}
+
+.job {
+    color: var(--main-font-color);
+    text-decoration: underline;
+    text-align: start;
+}
+.person__name {
+    cursor: pointer;
+    text-align: start;
+}
+.person__name:hover {
+    color: var(--main-font-color);
+}
+
+@media (max-width: 590px) {
+    .crewJobs__container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .job {
+        text-align: center;
+    }
+    .person__name {
+        text-align: center;
+    }
+}

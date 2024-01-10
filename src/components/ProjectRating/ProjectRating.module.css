@@ -1,0 +1,25 @@
+.detailTitle {
+    color: var(--main-font-color);
+}
+
+.rating {
+    font-size: 1.2rem;
+}
+.green_zone {
+    background: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.gray_zone {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.red_zone {
+    background: radial-gradient(486px at 37.5% -17.2%, rgb(255, 2, 2) 0%, rgb(254, 78, 172) 90%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

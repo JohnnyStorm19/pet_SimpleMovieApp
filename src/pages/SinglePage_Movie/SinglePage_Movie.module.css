@@ -1,0 +1,32 @@
+.movieSinglePage_container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: relative;
+}
+
+.details_menu {
+    width: fit-content;
+    margin: 0 auto;
+    border: 2px solid #FFFFFF;
+    border-radius: 10px;
+}
+
+.switcher__btn {
+    padding: 10px 10px;
+    border: none;
+    font-family: var(--btn-font-family);
+    color: #FFFFFF;
+    font-weight: normal;
+    font-size: 1rem;
+    background-color: transparent;
+}
+
+.switcher__btn:hover {
+    color: var(--main-font-color);
+}
+
+.clicked {
+    outline: 2px solid var(--main-font-color);
+    border-radius: 10px;
+}
