@@ -29,3 +29,51 @@
     color: #FFFFFF;
     transform: scale(1.1);
 }
+
+@media (max-width: 480px) {
+    .link {
+        font-size: 3rem;
+    }
+    .trendingLink {
+        font-size: 2.5rem;
+    }
+    .divider {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 440px) {
+    .link {
+        font-size: 2.5rem;
+    }
+    .trendingLink {
+        font-size: 2rem;
+    }
+    .divider {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .link {
+        font-size: 2.4rem;
+    }
+    .trendingLink {
+        font-size: 1.9rem;
+    }
+    .divider {
+        font-size: 2.4rem;
+    }
+}
+
+@media (max-width: 280px) {
+    .link {
+        font-size: 2rem;
+    }
+    .trendingLink {
+        font-size: 1.5rem;
+    }
+    .divider {
+        font-size: 2rem;
+    }
+}

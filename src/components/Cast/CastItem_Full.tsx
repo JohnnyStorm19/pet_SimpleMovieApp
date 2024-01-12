@@ -33,7 +33,7 @@ const CastItem_Full = ({ person }: ICastItem_FullProps) => {
       </div>
       <div className={style.profile_info}>
         <span>{person.name}</span>
-        <span>role: {getAllRoles(person.roles)}</span>
+        <span className={style.role}>role: {getAllRoles(person.roles)}</span>
       </div>
     </div>
   );

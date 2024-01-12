@@ -95,13 +95,12 @@
     }
 }
 
-@media (max-width: 660px) {
-    .tvCard_single_container {
-        display: grid;
-        grid-template-columns: minmax(min-content, max-content);
-        position: relative;
-        gap: 2rem;
-        font-family: var(--btn-font-family);
-        color: #FFFFFF;
+@media (max-width: 576px) {
+    .img_container, .img_container img {
+        width: 270px;
+        height: 420px;
     }
+    .img_container {
+        background-image: url("https://placehold.co/270x420?text=Poster+Image");
+      }
 }

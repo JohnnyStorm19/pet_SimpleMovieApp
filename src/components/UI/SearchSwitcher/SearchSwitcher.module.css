@@ -24,3 +24,11 @@
     outline: 2px solid var(--main-font-color);
     border-radius: 10px;
 }
+
+
+@media (max-width: 576px) {
+    .switcher_container {
+        display: flex;
+    }
+    
+} 

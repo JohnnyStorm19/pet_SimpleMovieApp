@@ -14,4 +14,6 @@
     font-size: var(--page-title-font-size);
     color: var(--main-font-color);
     cursor: default;
+
+    text-align: center;
 }

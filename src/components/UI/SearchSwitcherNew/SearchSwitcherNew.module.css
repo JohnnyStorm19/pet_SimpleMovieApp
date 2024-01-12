@@ -19,6 +19,8 @@
     font-weight: normal;
     font-size: 1rem;
     background-color: transparent;
+
+    word-break: break-word;
 }
 
 .switcher__btn:hover {
@@ -30,3 +32,24 @@
     outline: 2px solid var(--main-font-color);
     border-radius: 10px;
 }
+
+@media (max-width: 576px) {
+    .switcher_container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        width: fit-content;
+
+        border: none;
+    }
+    .switcher_container:nth-child(1) {
+        padding-bottom: 20px;
+        border-radius: 0;
+        border-bottom: 2px solid #FFFFFF;
+    }
+    .switcher__btn {
+        padding: 5px;
+    }
+    
+} 

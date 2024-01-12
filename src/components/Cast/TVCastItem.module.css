@@ -28,3 +28,18 @@
 .img__container img {
   border-radius: 10px;
 }
+
+.role {
+  word-break: keep-all;
+  font-size: .8rem;
+}
+
+@media (max-width: 576px) {
+  .profile_info {
+    font-size: .8rem;
+  }
+  .role {
+    font-size: .6rem;
+  }
+
+}

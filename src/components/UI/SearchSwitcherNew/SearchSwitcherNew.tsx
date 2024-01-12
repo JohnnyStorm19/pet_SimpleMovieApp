@@ -74,7 +74,7 @@ const SearchSwitcherNew = ({
             contentType === "tv" ? style.clicked : ""
           }`}
         >
-          Trending serials / TV-shows
+          Trending serials / TVshows
         </button>
       </div>
     </div>

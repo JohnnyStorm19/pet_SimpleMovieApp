@@ -4,7 +4,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
-    justify-content: center;
 }
 
 select {
@@ -21,4 +20,11 @@ label {
 
 label:hover {
     color: var(--main-font-color);
+}
+
+@media (max-width: 576px) {
+    .sortingSwitcher_container {
+        display: block;
+        margin: 0 auto;
+    }
 }

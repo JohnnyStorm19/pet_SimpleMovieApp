@@ -11,8 +11,12 @@
 
 .img__container_w300 {
   background-image: url("https://placehold.co/300x450?text=Poster+Image");
-  width: 300px;
-  height: 450px;
+  width: 270px;
+  height: 420px;
+}
+.img__container_w300 img {
+  width: 270px;
+  height: 420px;
 }
 
 .img__container_w150 {
@@ -89,6 +93,25 @@
 
 @keyframes fadeIn {
   to {
-    opacity: 1; /* Gradually increase opacity to 1 at the end of the animation */
+    opacity: 1; 
+  }
+}
+
+@media (max-width: 576px) {
+  .img__container_w300, .img__container_w300 img {
+    width: 100px;
+    height: 170px;
+  }
+  .img__container_w300 {
+    background-image: url("https://placehold.co/100x170?text=Poster+Image");
+  }
+
+  .img__container_w150, .img__container_w150 img {
+    width: 100px;
+    height: 170px;
+  }
+
+  .img__container_w150 {
+    background-image: url("https://placehold.co/100x170?text=Poster+Image");
   }
 }

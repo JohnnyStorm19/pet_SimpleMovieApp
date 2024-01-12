@@ -63,7 +63,7 @@ const PersonPage = () => {
   return (
     <div className={style.personPage_container}>
       <PageHeader />
-      
+
       {searchLoader && <Loader />}
       {creditsLoader && <Loader />}
       {searchError && <MyError />}
@@ -77,18 +77,23 @@ const PersonPage = () => {
       {searchResult && credits && (
         <div className={style.personPage_content_wrapper}>
           <section className={style.projects_section}>
-            <div className={style.content_nav}>
-              <SortingSwitcher
-                options={getPersonsJob(credits.crew as ICombinedCrew[], credits.cast as ICombinedCast[])}
-                onChangeHandler={sortingSwitcherChangeHandler}
-              />
-            </div>
+            <SortingSwitcher
+              options={getPersonsJob(
+                credits.crew as ICombinedCrew[],
+                credits.cast as ICombinedCast[]
+              )}
+              onChangeHandler={sortingSwitcherChangeHandler}
+            />
+
             <div>
               <div className={style.projects_count}>
                 Projects:{" "}
                 {
                   getFilteredAndSortedArrayOfCards({
-                    data: { cast: credits.cast as ICombinedCast[], crew: credits.crew as ICombinedCrew[] },
+                    data: {
+                      cast: credits.cast as ICombinedCast[],
+                      crew: credits.crew as ICombinedCrew[],
+                    },
                     sortType: sortByProjectTime,
                     filterContentType: sortByContentType,
                     filterJobType: sortByJob,
@@ -99,7 +104,10 @@ const PersonPage = () => {
                 <ItemCardsList
                   recievedData={
                     getFilteredAndSortedArrayOfCards({
-                      data: { cast: credits.cast as ICombinedCast[], crew: credits.crew as ICombinedCrew[] },
+                      data: {
+                        cast: credits.cast as ICombinedCast[],
+                        crew: credits.crew as ICombinedCrew[],
+                      },
                       sortType: sortByProjectTime,
                       filterContentType: sortByContentType,
                       filterJobType: "Actor",
@@ -111,7 +119,10 @@ const PersonPage = () => {
                 <ItemCardsList
                   recievedData={
                     getFilteredAndSortedArrayOfCards({
-                      data: { cast: credits.cast as ICombinedCast[], crew: credits.crew as ICombinedCrew[] },
+                      data: {
+                        cast: credits.cast as ICombinedCast[],
+                        crew: credits.crew as ICombinedCrew[],
+                      },
                       sortType: sortByProjectTime,
                       filterContentType: sortByContentType,
                       filterJobType: sortByJob,

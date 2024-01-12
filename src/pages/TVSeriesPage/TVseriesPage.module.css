@@ -14,4 +14,12 @@
     font-size: var(--page-title-font-size);
     color: var(--main-font-color);
     cursor: default;
+    text-align: center;
+}
+
+
+@media (max-width: 576px) {
+    .pageTitle {
+        font-size: 3.4rem;
+    }
 }

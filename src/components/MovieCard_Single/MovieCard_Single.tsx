@@ -56,7 +56,7 @@ const MovieCard_Single = ({
       {getDirector(credits.crew as ICreditsCrew[]) && (
         <DirectedBy crew={credits.crew as ICreditsCrew[]} />
       )}
-      <h4>{searchResult.tagline}</h4>
+      <h4 className={style.tagline}>{searchResult.tagline}</h4>
       <main className={style.movieCard_main}>
         <div className={style.img_container}>
           {searchResult.poster_path && (

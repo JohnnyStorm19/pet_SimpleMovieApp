@@ -6,6 +6,8 @@
   padding: 10px 20px;
   border-radius: 10px;
   background: #d3d3d3;
+
+  max-width: 100%;
 }
 .searching_glass {
     width: 25px;
@@ -30,7 +32,6 @@
   font-family: var(--btn-font-family);
 }
 
-
 .send_btn {
     width: 25px;
     height: 25px;
@@ -46,4 +47,25 @@
 }
 .send_btn:active {
     transform: scale(.9);
+}
+
+@media (max-width: 576px) {
+  .form {
+    padding-inline: 10px;
+  }
+
+  .form_input::placeholder {
+    font-size: .8rem;
+  }
+
+  .searching_glass {
+    width: 15px;
+    height: 15px;
+    background-size: 15px;
+  }
+  .send_btn {
+    width: 15px;
+    height: 15px;
+    background-size: 15px;
+  }
 }

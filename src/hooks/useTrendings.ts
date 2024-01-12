@@ -54,9 +54,13 @@ export const useTrendings = (
       fetchTrendingData();
     }
 
-    return () => {
-      controller.abort();
-    };
+    // return () => {
+    //   setIsLoading(false);
+    //   setError(false);
+    //   console.log('HAS CLEANED');
+
+    //   controller.abort();
+    // };
   }, [
     contentSwitcherValue,
     currentPage,
