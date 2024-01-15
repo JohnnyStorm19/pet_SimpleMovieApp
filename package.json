@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://movie-pet-app1.vercel.app",
+  "homepage": "https://pet-simple-movie-app.vercel.app/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -18,6 +18,7 @@
     "react-router-dom": "^6.21.0"
   },
   "devDependencies": {
+    "@types/node": "^20.11.1",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
