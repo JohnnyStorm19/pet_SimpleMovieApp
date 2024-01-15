@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter basename={'movie-pet-app.vercel.app'}>
+    <BrowserRouter basename={'movie-pet-app1.vercel.app'}>
       <App />
     </BrowserRouter>
   </React.StrictMode>,
