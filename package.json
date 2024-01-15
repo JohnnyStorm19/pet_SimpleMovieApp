@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://johnnystorm19.github.io/pet_SimpleMovieApp",
+  "homepage": "https://pet-simple-movie-app.vercel.app/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
