@@ -4,5 +4,5 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: 'https://pet-simple-movie-app.vercel.app/'
+  base: 'https://movie-pet-5kvoq3ley-johnnystorm19s-projects.vercel.app/'
 })
