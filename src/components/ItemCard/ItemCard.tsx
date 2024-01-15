@@ -69,6 +69,8 @@ const ItemCard = ({
     title = cardData.name;
   }
 
+  //loading="lazy" вернуть!!!
+
   return (
     <div
       className={style.card__container}
@@ -80,7 +82,7 @@ const ItemCard = ({
         <>
           <div className={style.img__container_w300}>
             {cardData.poster_path && (
-              <img src={img_300 + cardData.poster_path} alt="" loading="lazy" />
+              <img src={img_300 + cardData.poster_path} alt="" />
             )}
           </div>
           <div
@@ -96,7 +98,7 @@ const ItemCard = ({
         <>
           <div className={style.img__container_w150}>
             {cardData.poster_path && (
-              <img src={img_200 + cardData.poster_path} alt="" loading="lazy" />
+              <img src={img_200 + cardData.poster_path} alt="" />
             )}
           </div>
           <div
