@@ -17,18 +17,20 @@ svg {
 }
 
 .text_container {
+    padding-inline: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
 .text_container h3 {
-    font-size: 50px;
+    font-size: 5vw;
     color: var(--main-font-color)
 }
 
 .text_container h1 {
-    font-size: 211px;
+    font-size: 10vw;
     color: #FFFFFF
 }
