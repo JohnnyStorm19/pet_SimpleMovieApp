@@ -5,7 +5,6 @@ const PageNotFound = () => {
   return (
     <>
       <header>
-        {/* <PageHeader /> */}
         <MainPageLink />
       </header>
       <div className={style.container}>
