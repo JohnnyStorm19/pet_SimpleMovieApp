@@ -1,0 +1,34 @@
+.container {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header {
+    text-align: center;
+}
+
+svg {
+    height: 100vh;
+}
+
+.text_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.text_container h3 {
+    font-size: 50px;
+    color: var(--main-font-color)
+}
+
+.text_container h1 {
+    font-size: 211px;
+    color: #FFFFFF
+}

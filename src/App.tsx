@@ -8,6 +8,7 @@ import SinglePage_Movie from "./pages/SinglePage_Movie/SinglePage_Movie";
 import SinglePage_TVSeries from "./pages/SinglePage_TVSeries/SinglePage_TVSeries";
 import TVCastFullPage from "./pages/TVCastFullPage/TVCastFullPage";
 import PersonPage from "./pages/PersonPage/PersonPage";
+import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
 function App() {
   // const store = {
@@ -38,6 +39,7 @@ function App() {
       <Route path="/trending/tv/:id" element={<SinglePage_TVSeries />} />
       <Route path="/trending/tv/:id/cast-full" element={<TVCastFullPage />} />
       <Route path="/person/:id" element={<PersonPage />}/>
+      <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
 }
