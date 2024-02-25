@@ -1,30 +1,49 @@
-# React + TypeScript + Vite
+# SimpleMoviePet_app
+<p align="center">
+  <a href="" rel="noopener">
+ <img src="./public/main-page.png" alt="Project logo"></a>
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<div align="center">
 
-Currently, two official plugins are available:
+[![SimpleMoviePet_app](https://github.com/JohnnyStorm19/pet_SimpleMovieApp/actions/workflows/web.yml/badge.svg)](https://github.com/JohnnyStorm19/pet_SimpleMovieApp/actions/workflows/web.yml)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+</div>
 
-## Expanding the ESLint configuration
+---
+📛 ***К сожалению, TMDB (база данных) не работает на территории РФ, убедитесь, что в связи с этим приняты меры***😏
+## 🚀[Запустить проект](https://pet-simple-movie-app.vercel.app/)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- Configure the top-level `parserOptions` property like this:
+## 🧐 О проекте <a name = "about"></a>
+Проект, вдохновленный любовью к кинематографу и поп-культуре. В качестве референсов были использованы: 
+- превосходный [letterboxd](https://letterboxd.com/)
+- мастодонт [IMDb](https://www.imdb.com/)
+- русский мастодонт [Кинопоиск](https://www.kinopoisk.ru/)
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+<strong>Реализована логика</strong>: 
+- поиск кино и сериалов
+- поиск по трендам (кино/сериалы)
+- личные страницы актеров, съемочной группы
+- различные фильтры в поиске по категориям и фильтры внутри фильмографии деятеля кинематографа
+  
+#### ***Проект будет усложняться, планируются следующие фичи***:
+- возможность сохранить проект в избранное
+- авторизация
+- глобальный поиск без привязки к категории
+- светлая/темная тема
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## ⛏️ Стек проекта <a name = "built_using"></a>
+[![My Skills](https://skillicons.dev/icons?i=ts,vite,react,css)](https://skillicons.dev)
+- [Typescript](https://redux-toolkit.js.org/) - language
+- [Vite](https://react.dev/) - web tool
+- [React](https://react.dev/) - web framework (да-да, или библиотека)
+- [React Router](https://reactrouter.com/en/main) - роутинг
+- [CSS-modules](https://tailwindcss.com/) - стилизация
+- [TMDB API](https://developer.themoviedb.org/docs/getting-started) - база данных
+- [Axios](https://axios-http.com/ru/docs/intro) - работа с запросами
+- [react-paginate](https://www.npmjs.com/package/react-paginate) - пагинация
+
+## ✍️ Разработка <a name = "authors"></a>
+- [@JohnnyStorm19](https://github.com/JohnnyStorm19) - идея, разработка веб-приложения
+- [@AnaKlsnkv](https://t.me/AnaKlsnkv) - веб-дизайн
