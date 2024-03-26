@@ -19,7 +19,7 @@ const MoviePage = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [currentSearchType, setCurrentSearchType] = useState('keyword');
   const [{ genres, isLoading, error }] = useGenres(type);
-  const [selectedGenres, setSelectedGenres] = useState<ISelectedGenre[] | []>(
+  const [selectedGenres, setSelectedGenres] = useState<ISelectedGenre[]>(
     []
   );
   const [shouldSearch, setShouldSearch] = useState(false);

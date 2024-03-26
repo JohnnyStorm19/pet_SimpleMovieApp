@@ -24,7 +24,6 @@ const Pagination = ({
   };
 
   useEffect(() => {
-    console.log('Pagination')
     window.addEventListener("resize", handleResize);
   });
 
