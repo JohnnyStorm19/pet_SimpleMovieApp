@@ -1,18 +1,17 @@
-import { useParams } from "react-router-dom";
-import { useSearchById } from "../../hooks/useSearchById";
+import Cast from "@/components/Cast/Cast";
+import MyError from "@/components/Error/MyError";
+import Loader from "@/components/Loader/Loader";
+import TvCard_Single from "@/components/TvCard_Single/TvCard_Single";
+import TVDetails from "@/components/TVDetails/TVDetails";
+import TVSeasons from "@/components/TVDetails/TVSeasons/TVSeasons";
+import { useGetCredits } from "@/hooks/useGetCredits";
+import { useSearchById } from "@/hooks/useSearchById";
+import { ITvCard_Single } from "@/types/models";
 import { useState } from "react";
-import { useGetCredits } from "../../hooks/useGetCredits";
-import TvCard_Single from "../../components/TvCard_Single/TvCard_Single";
+import { useParams } from "react-router-dom";
 import style from "./SinglePage_TVSeries.module.css";
-import Cast from "../../components/Cast/Cast";
-import TVDetails from "../../components/TVDetails/TVDetails";
-import TVSeasons from "../../components/TVDetails/TVSeasons/TVSeasons";
-import PageHeader from "../../components/UI/PageHeader/PageHeader";
-import { ITvCard_Single } from "../../types/models";
-import Loader from "../../components/Loader/Loader";
-import MyError from "../../components/Error/MyError";
 
-const SinglePage_TVSeries = () => {
+export const SinglePage_TVSeries = () => {
   const type = "tvSeries";
   const [shouldSearch, setShouldSearch] = useState(true);
   const [isClickedCastBtn, setIsClickeCastdBtn] = useState(true);
@@ -39,7 +38,6 @@ const SinglePage_TVSeries = () => {
   );
   // ? Credits используем???
 
-
   const handleBtnClick = (e: React.SyntheticEvent<HTMLButtonElement>) => {
     if (e.currentTarget.name === "cast") {
       setIsClickeCastdBtn(true);
@@ -60,24 +58,39 @@ const SinglePage_TVSeries = () => {
 
   return (
     <div className={style.TVSinglePage_container}>
-      <PageHeader />
-      {searchLoader && <Loader />}
-      {creditsLoader && <Loader />}
-      {searchError && <MyError />}
-      {creditsError && <MyError />}
+      {(searchLoader || creditsLoader) && <Loader />}
+      {(searchError || creditsError) && <MyError />}
 
       {searchResult && credits && (
         <TvCard_Single searchResult={searchResult as ITvCard_Single} />
       )}
       <>
         <div className={style.details_menu}>
-          <button className={`${style.switcher__btn} ${isClickedCastBtn ? style.clicked : ''}`} onClick={handleBtnClick} name="cast">
+          <button
+            className={`${style.switcher__btn} ${
+              isClickedCastBtn ? style.clicked : ""
+            }`}
+            onClick={handleBtnClick}
+            name="cast"
+          >
             Cast
           </button>
-          <button className={`${style.switcher__btn} ${isClickedDetailsBtn ? style.clicked : ''}`} onClick={handleBtnClick} name="details">
+          <button
+            className={`${style.switcher__btn} ${
+              isClickedDetailsBtn ? style.clicked : ""
+            }`}
+            onClick={handleBtnClick}
+            name="details"
+          >
             Details
           </button>
-          <button className={`${style.switcher__btn} ${isClickedSeasonsBtn ? style.clicked : ''}`} onClick={handleBtnClick} name="seasons">
+          <button
+            className={`${style.switcher__btn} ${
+              isClickedSeasonsBtn ? style.clicked : ""
+            }`}
+            onClick={handleBtnClick}
+            name="seasons"
+          >
             Seasons
           </button>
         </div>
@@ -88,5 +101,3 @@ const SinglePage_TVSeries = () => {
     </div>
   );
 };
-
-export default SinglePage_TVSeries;

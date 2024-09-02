@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import style from './MainPage.module.css'
 
-const MainPage = () => {
+export const MainPage = () => {
   return (
     <div className={style.menu}>
       <div className={style.row}>
@@ -15,5 +15,3 @@ const MainPage = () => {
     </div>
   );
 };
-
-export default MainPage;

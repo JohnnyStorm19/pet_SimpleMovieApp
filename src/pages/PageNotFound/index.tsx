@@ -1,12 +1,10 @@
-import MainPageLink from "../../components/UI/MainPageLink/MainPageLink";
 import style from "./PageNotFound.module.css";
 
-const PageNotFound = () => {
+// todo заимпорти нормальный svg из фигмы!
+
+export const PageNotFound = () => {
   return (
     <>
-      <header>
-        <MainPageLink />
-      </header>
       <div className={style.container}>
         <div className={style.text_container}>
           <h3>Oh nooooooooo!</h3>
@@ -61,5 +59,3 @@ const PageNotFound = () => {
     </>
   );
 };
-
-export default PageNotFound;

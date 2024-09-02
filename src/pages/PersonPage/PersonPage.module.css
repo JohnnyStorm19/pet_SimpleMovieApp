@@ -1,106 +1,110 @@
 .personPage_container {
-    font-family: var(--main-font-family);
-    color: var(--main-font-color);
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+  font-family: var(--main-font-family);
+  color: var(--main-font-color);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .personPage_content_wrapper {
-    display: flex;
-    gap: 10%;
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
 }
 
 .projects_section {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
-    width: 55%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 55%;
 }
 
 .person_name {
-    font-size: 3rem;
-    text-align: center;
+  font-size: 3rem;
+  text-align: center;
 }
 
 .person_bio_aside {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    width: 35%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: fit-content;
 }
 
 .projects_count {
-    text-align: left;
-    margin-bottom: 1rem;
-    font-family: var(--btn-font-family);
-    text-decoration: underline;
+  text-align: left;
+  margin-bottom: 1rem;
+  font-family: var(--btn-font-family);
+  text-decoration: underline;
 }
 
 .img_container {
-    background-image: url("https://placehold.co/300x450?text=Poster+Image");
-    font-family: var(--btn-font-family);
-    color: #999999;
+  background-image: url("https://placehold.co/300x450?text=Poster+Image");
+  font-family: var(--btn-font-family);
+  color: #999999;
 }
 
-.img_container, .img_container img {
-    width: 300px;
-    height: 450px;
+.img_container,
+.img_container img {
+  max-width: 300px;
+  height: 450px;
 }
 
 .biography_container {
-    width: 300px;
-    text-align: left;
-    font-family: var(--btn-font-family);
-    color: #FFFFFF;
-    font-size: .8rem;
-    word-wrap: break-word;
+  max-width: 300px;
+  text-align: left;
+  font-family: var(--btn-font-family);
+  color: #ffffff;
+  font-size: 0.8rem;
+  word-wrap: break-word;
 }
 
 @media (max-width: 768px) {
-    .personPage_content_wrapper {
-        gap: 0;
-        justify-content: space-between;
-    }
-    .biography_container {
-        width: 200px;
-        margin: 0 auto;
-    }
+  .personPage_content_wrapper {
+    gap: 0;
+    justify-content: space-between;
+  }
+  .biography_container {
+    width: 200px;
+    margin: 0 auto;
+  }
 
-    .img_container {
-        background-image: url("https://placehold.co/200x300?text=Poster+Image");
-    }
+  .img_container {
+    background-image: url("https://placehold.co/200x300?text=Poster+Image");
+  }
 
-    .img_container, .img_container img {
-        margin: 0 auto;
-        width: 200px;
-        height: 300px;
-    }
+  .img_container,
+  .img_container img {
+    margin: 0 auto;
+    width: 200px;
+    height: 300px;
+  }
 }
 
 @media (max-width: 576px) {
-    .personPage_content_wrapper {
-        gap: 2rem;
-        flex-direction: column;
-    }
-    .projects_section, .person_bio_aside {
-        width: 100%;
-    }
-    .projects_section {
-        order: 2;
-    }
-    .person_bio_aside {
-        order: 1;
-    }
-    .biography_container {
-        width: 250px;
-        margin: 0 auto;
-    }
+  .personPage_content_wrapper {
+    gap: 2rem;
+    flex-direction: column;
+  }
+  .projects_section,
+  .person_bio_aside {
+    width: 100%;
+  }
+  .projects_section {
+    order: 2;
+  }
+  .person_bio_aside {
+    order: 1;
+  }
+  .biography_container {
+    width: 250px;
+    margin: 0 auto;
+  }
 
-    .img_container, .img_container img {
-        margin: 0 auto;
-        width: 250px;
-        height: 400px;
-    }
+  .img_container,
+  .img_container img {
+    margin: 0 auto;
+    width: 250px;
+    height: 400px;
+  }
 }

@@ -1,0 +1,30 @@
+.pageHeader {
+  position: relative;
+  text-align: center;
+  display: flex;
+}
+
+.mainPageLink {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-transform: capitalize;
+  font-family: var(--main-font-family);
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1.5rem;
+}
+
+.mainPageLink:hover {
+  color: var(--main-font-color);
+}
+
+.backLink {
+  text-decoration: none;
+  color: #ffffff;
+  font-family: var(--btn-font-family);
+}
+.backLink:hover {
+  color: var(--main-font-color);
+}

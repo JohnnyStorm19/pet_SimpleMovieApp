@@ -1,23 +1,22 @@
-import style from "./PersonPage.module.css";
-import { useParams } from "react-router-dom";
-import { useSearchById } from "../../hooks/useSearchById";
+import MyError from "@/components/Error/MyError";
+import ItemCardsList from "@/components/ItemCardsList/ItemCardsList";
+import Loader from "@/components/Loader/Loader";
+import PersonBiography from "@/components/PersonBiography/PersonBiography";
+import SortingSwitcher from "@/components/UI/SortingSwitcher/SortingSwitcher";
+import { useGetCredits } from "@/hooks/useGetCredits";
+import { useSearchById } from "@/hooks/useSearchById";
+import { REQUEST_URLS } from "@/services/api/requestApi";
+import { getPersonsJob } from "@/services/utils/getPersonsJob";
+import { getFilteredAndSortedArrayOfCards } from "@/services/utils/getSortedAndFilteredBy";
+import { ICombinedCast, ICombinedCrew } from "@/types/models";
 import { useState } from "react";
-import { REQUEST_URLS } from "../../services/api/requestApi";
-import { useGetCredits } from "../../hooks/useGetCredits";
-import ItemCardsList from "../../components/ItemCardsList/ItemCardsList";
-import { getFilteredAndSortedArrayOfCards } from "../../services/utils/getSortedAndFilteredBy";
-import SortingSwitcher from "../../components/UI/SortingSwitcher/SortingSwitcher";
-import { getPersonsJob } from "../../services/utils/getPersonsJob";
-import PageHeader from "../../components/UI/PageHeader/PageHeader";
-import PersonBiography from "../../components/PersonBiography/PersonBiography";
-import { ICombinedCast, ICombinedCrew } from "../../types/models";
-import Loader from "../../components/Loader/Loader";
-import MyError from "../../components/Error/MyError";
+import { useParams } from "react-router-dom";
+import style from "./PersonPage.module.css";
 
 type TContentType = "movie" | "tv" | "all";
 type TProjectTime = "newest" | "earliest" | "";
 
-const PersonPage = () => {
+export const PersonPage = () => {
   const personSearchType = "personBio";
   const creditsType = "combined";
 
@@ -62,17 +61,11 @@ const PersonPage = () => {
 
   return (
     <div className={style.personPage_container}>
-      <PageHeader />
-
-      {searchLoader && <Loader />}
-      {creditsLoader && <Loader />}
-      {searchError && <MyError />}
-      {creditsError && <MyError />}
+      {(searchLoader || creditsLoader) && <Loader />}
+      {(searchError || creditsError) && <MyError />}
 
       {searchResult && "name" in searchResult && (
-        <header className={style.person_name_header}>
-          <h1 className={style.person_name}>{searchResult.name}</h1>
-        </header>
+        <h1 className={style.person_name}>{searchResult.name}</h1>
       )}
       {searchResult && credits && (
         <div className={style.personPage_content_wrapper}>
@@ -156,5 +149,3 @@ const PersonPage = () => {
     </div>
   );
 };
-
-export default PersonPage;

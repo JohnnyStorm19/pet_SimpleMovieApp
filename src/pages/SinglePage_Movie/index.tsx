@@ -1,17 +1,16 @@
 import { useParams } from "react-router-dom";
-import { useSearchById } from "../../hooks/useSearchById";
+import { useSearchById } from "@/hooks/useSearchById";
 import { useState } from "react";
-import { useGetCredits } from "../../hooks/useGetCredits";
-import MovieCard_Single from "../../components/MovieCard_Single/MovieCard_Single";
+import { useGetCredits } from "@/hooks/useGetCredits";
+import MovieCard_Single from "@/components/MovieCard_Single/MovieCard_Single";
 import style from "./SinglePage_Movie.module.css";
-import Cast from "../../components/Cast/Cast";
-import Crew from "../../components/Crew/Crew";
-import PageHeader from "../../components/UI/PageHeader/PageHeader";
-import { IRecievedMovieCard_SingleData } from "../../types/models";
-import Loader from "../../components/Loader/Loader";
-import MyError from "../../components/Error/MyError";
+import Cast from "@/components/Cast/Cast";
+import Crew from "@/components/Crew/Crew";
+import { IRecievedMovieCard_SingleData } from "@/types/models";
+import MyError from "@/components/Error/MyError";
+import { Loader } from "@/shared/ui";
 
-const SinglePage_Movie = () => {
+export const SinglePage_Movie = () => {
   const type = "movie";
   const [shouldSearch, setShouldSearch] = useState(true);
   const [isClickedCastBtn, setIsClickeCastdBtn] = useState(true);
@@ -36,7 +35,7 @@ const SinglePage_Movie = () => {
     setShouldSearch
   );
 
-  const handleBtnClick = (e:React.SyntheticEvent<HTMLButtonElement>) => {
+  const handleBtnClick = (e: React.SyntheticEvent<HTMLButtonElement>) => {
     if (e.currentTarget.name === "cast") {
       setIsClickeCastdBtn(true);
       setIsClickeCrewdBtn(false);
@@ -49,21 +48,33 @@ const SinglePage_Movie = () => {
 
   return (
     <div className={style.movieSinglePage_container}>
-      <PageHeader />
-      {searchLoader && <Loader />}
-      {creditsLoader && <Loader />}
-      {searchError && <MyError />}
-      {creditsError && <MyError />}
-      
+      {(searchLoader || creditsLoader) && <Loader />}
+      {(searchError || creditsError) && <MyError />}
+
       {searchResult && credits && (
-        <MovieCard_Single searchResult={searchResult as IRecievedMovieCard_SingleData} credits={credits} />
+        <MovieCard_Single
+          searchResult={searchResult as IRecievedMovieCard_SingleData}
+          credits={credits}
+        />
       )}
       <>
         <div className={style.details_menu}>
-          <button className={`${style.switcher__btn} ${isClickedCastBtn ? style.clicked : ''}`} onClick={handleBtnClick} name="cast">
+          <button
+            className={`${style.switcher__btn} ${
+              isClickedCastBtn ? style.clicked : ""
+            }`}
+            onClick={handleBtnClick}
+            name="cast"
+          >
             Cast
           </button>
-          <button className={`${style.switcher__btn} ${isClickedCrewBtn ? style.clicked : ''}`} onClick={handleBtnClick} name="crew">
+          <button
+            className={`${style.switcher__btn} ${
+              isClickedCrewBtn ? style.clicked : ""
+            }`}
+            onClick={handleBtnClick}
+            name="crew"
+          >
             Crew
           </button>
         </div>
@@ -73,5 +84,3 @@ const SinglePage_Movie = () => {
     </div>
   );
 };
-
-export default SinglePage_Movie;

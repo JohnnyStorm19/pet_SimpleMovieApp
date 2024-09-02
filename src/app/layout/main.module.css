@@ -1,0 +1,15 @@
+.app_container {
+  /* relative flex min-h-screen flex-col justify-between gap-4 */
+  position: relative;
+  display: flex;
+  max-height: 100vh;
+  min-height: 90vh;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.main {
+  position: relative;
+  flex: 1;
+}

@@ -3,6 +3,8 @@ import { IFormData, ISearchWidgetProps } from "../../types/models";
 import style from './SearchWidget.module.css'
 
 //todo 1. стилизовать валидацию инпута
+// todo прикрепить react-hook-form
+// todo изменить имя компонента SearchForm
 
 const SearchWidget: React.FC<ISearchWidgetProps> = ({ onFormSubmit }) => {
   const [formData, setFormData] = useState<IFormData>({ searchInput: "" });

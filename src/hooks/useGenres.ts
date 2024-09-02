@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { IRecievedGenres } from "../types/models";
 import axios from "axios";
 import { REQUEST_URLS, getRequestConfig } from "../services/api/requestApi";
+import { TContentType } from "@/shared/models/TContentType";
 
-export const useGenres = (type: "movie" | "tvSeries") => {
+export const useGenres = (type: TContentType) => {
   const [genres, setGenres] = useState<IRecievedGenres[] | []>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);

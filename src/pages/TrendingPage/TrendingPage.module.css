@@ -4,12 +4,6 @@
     gap: 2rem;
 }
 
-.header {
-    display: flex;
-    justify-content: center;
-    position: relative;
-}
-
 .pageTitle {
     font-size: var(--page-title-font-size);
     color: var(--main-font-color);

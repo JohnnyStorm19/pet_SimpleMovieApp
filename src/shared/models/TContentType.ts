@@ -1,0 +1,1 @@
+export type TContentType = "movie" | "tvSeries";

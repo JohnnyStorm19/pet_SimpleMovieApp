@@ -1,0 +1,9 @@
+export { MainPage } from "./MainPage";
+export { TrendingPage } from "./TrendingPage";
+export { MoviePage } from "./MoviePage";
+export { TVseriesPage } from "./TVSeriesPage";
+export { SinglePage_Movie } from "./SinglePage_Movie";
+export { SinglePage_TVSeries } from "./SinglePage_TVSeries";
+export { TVCastFullPage } from "./TVCastFullPage";
+export { PersonPage } from "./PersonPage";
+export { PageNotFound } from "./PageNotFound";

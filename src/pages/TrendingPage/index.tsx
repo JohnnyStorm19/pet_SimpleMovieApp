@@ -1,17 +1,16 @@
-import Pagination from "../../components/UI/Pagination/Pagination";
-import { useTrendings } from "../../hooks/useTrendings";
+import MyError from "@/components/Error/MyError";
+import ItemCardsList from "@/components/ItemCardsList/ItemCardsList";
+import Pagination from "@/components/UI/Pagination/Pagination";
+import SearchSwitcherNew from "@/components/UI/SearchSwitcherNew/SearchSwitcherNew";
+import { useTrendings } from "@/hooks/useTrendings";
+import { Loader } from "@/shared/ui";
 import { useState } from "react";
-import ItemCardsList from "../../components/ItemCardsList/ItemCardsList";
-import SearchSwitcherNew from "../../components/UI/SearchSwitcherNew/SearchSwitcherNew";
 import style from "./TrendingPage.module.css";
-import PageHeader from "../../components/UI/PageHeader/PageHeader";
-import Loader from "../../components/Loader/Loader";
-import MyError from "../../components/Error/MyError";
 
 type TPeriodSwitcher = "week" | "day";
 type TContentSwitcher = "all" | "movie" | "tv";
 
-const TrendingPage = () => {
+export const TrendingPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [shouldSearch, setShouldSearch] = useState(true);
   const [periodSwitcherValue, setPeriodSwitcherValue] =
@@ -47,12 +46,9 @@ const TrendingPage = () => {
     <>
       {isLoading && <Loader />}
       {error && <MyError />}
-      
+
       <div className={style.trending_container}>
-        <PageHeader />
-        <header className={style.header}>
-          <h2 className={style.pageTitle}>Trending now</h2>
-        </header>
+        <h2 className={style.pageTitle}>Trending now</h2>
         <SearchSwitcherNew
           handlePeriodSwitcher={handlePeriodSwitcher}
           handleContentSwitcher={handleContentSwitcher}
@@ -78,5 +74,3 @@ const TrendingPage = () => {
     </>
   );
 };
-
-export default TrendingPage;

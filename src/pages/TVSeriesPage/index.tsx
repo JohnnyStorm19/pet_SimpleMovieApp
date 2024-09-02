@@ -1,18 +1,17 @@
-import Genres from "../../components/Genres/Genres";
-import { useGenres } from "../../hooks/useGenres";
+import Genres from "@/components/Genres/Genres";
+import { useGenres } from "@/hooks/useGenres";
 import React, { useState } from "react";
-import { IFormData, ISelectedGenre } from "../../types/models";
-import Pagination from "../../components/UI/Pagination/Pagination";
-import ItemCardsList from "../../components/ItemCardsList/ItemCardsList";
-import SearchWidget from "../../components/SearchWidget/SearchWidget";
-import SearchSwitcher from "../../components/UI/SearchSwitcher/SearchSwitcher";
-import { useSearchBy } from "../../hooks/useSearchBy";
-import PageHeader from "../../components/UI/PageHeader/PageHeader";
+import { IFormData, ISelectedGenre } from "@/types/models";
+import Pagination from "@/components/UI/Pagination/Pagination";
+import ItemCardsList from "@/components/ItemCardsList/ItemCardsList";
+import SearchWidget from "@/components/SearchWidget/SearchWidget";
+import { SearchSwitcher } from "@/shared/ui";
+import { useSearchBy } from "@/hooks/useSearchBy";
 import style from "./TVseriesPage.module.css";
-import Loader from "../../components/Loader/Loader";
-import MyError from "../../components/Error/MyError";
+import MyError from "@/components/Error/MyError";
+import { Loader } from "@/shared/ui";
 
-const TVseriesPage = () => {
+export const TVseriesPage = () => {
   const type = "tvSeries";
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -79,10 +78,7 @@ const TVseriesPage = () => {
       {searchLoader && <Loader />}
       {searchError && <MyError />}
 
-      <PageHeader />
-      <header className={style.header}>
-        <h2 className={style.pageTitle}>Serials / TV-shows</h2>
-      </header>
+      <h2 className={style.pageTitle}>Serials / TV-shows</h2>
       <SearchSwitcher handleSearchSwitcher={handleSearchSwitcher} />
 
       {currentSearchType === "keyword" && (
@@ -99,21 +95,23 @@ const TVseriesPage = () => {
         />
       )}
 
-      {searchResult && searchResult.results.length > 0 && (selectedGenres.length > 0 || currentSearchType === 'keyword') && (
-        <ItemCardsList recievedData={searchResult.results} mainType={type} />
-      )}
+      {searchResult &&
+        searchResult.results.length > 0 &&
+        (selectedGenres.length > 0 || currentSearchType === "keyword") && (
+          <ItemCardsList recievedData={searchResult.results} mainType={type} />
+        )}
 
-      {searchResult && searchResult.total_pages && (selectedGenres.length > 0 || currentSearchType === 'keyword') && (
-        <Pagination
-          totalPageCount={
-            searchResult.total_pages > 500 ? 500 : searchResult.total_pages
-          }
-          onPageChange={handlePageClick}
-          forcePage={currentPage}
-        />
-      )}
+      {searchResult &&
+        searchResult.total_pages &&
+        (selectedGenres.length > 0 || currentSearchType === "keyword") && (
+          <Pagination
+            totalPageCount={
+              searchResult.total_pages > 500 ? 500 : searchResult.total_pages
+            }
+            onPageChange={handlePageClick}
+            forcePage={currentPage}
+          />
+        )}
     </div>
   );
 };
-
-export default TVseriesPage;
