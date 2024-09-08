@@ -1,120 +1,122 @@
-import Genres from "@/components/Genres/Genres";
+// import Genres from "@/components/Genres/Genres";
 import ItemCardsList from "@/components/ItemCardsList/ItemCardsList";
 import SearchWidget from "@/components/SearchWidget/SearchWidget";
 import Pagination from "@/components/UI/Pagination/Pagination";
-// import { useGenres } from "@/hooks/useGenres";
-import { useSearchBy } from "@/hooks/useSearchBy";
-import { SearchSwitcher } from "@/shared/ui";
-import { IFormData, ISelectedGenre } from "@/types/models";
-import React, { useState } from "react";
+import { SearchSwitcher } from "@/widgets";
+import { IFormData } from "@/types/models";
+import React, { useMemo, useState } from "react";
 import MyError from "@/components/Error/MyError";
-import { TSearchSwitcher } from "@/shared/models/TSearchSwitcher.type";
 import { Loader } from "@/shared/ui";
 import style from "./MoviePage.module.css";
 import { useGetGenres } from "@/shared/hooks/use-get-genres";
+import { useSearchByGenre } from "@/shared/hooks/use-search-by-genre";
+import { useSearchByKeyword } from "@/shared/hooks/use-search-by-keyword";
+import { Genres } from "@/widgets/Genres/ui";
+import { useSearchParams } from "react-router-dom";
+import { ISearchByResponse } from "@/shared/models/search-by-response.interface";
 
-// todo прикрутить query-hook, полностью пересмотреть отправку запросов на поиск
-// todo разделить хуки use-search-by-name / use-search-by-genre
+// todo отрефакторить компонент!
 
 export const MoviePage = () => {
   const type = "movie";
-
   const [currentPage, setCurrentPage] = useState(0);
-  const [currentSearchType, setCurrentSearchType] = useState("keyword");
-  const { data: genres, isPending, isError, isSuccess } = useGetGenres(type);
-  // const [{ genres, isLoading, error }] = useGenres(type);
-  const [selectedGenres, setSelectedGenres] = useState<ISelectedGenre[]>([]);
-  const [shouldSearch, setShouldSearch] = useState(false);
+  // const [currentSearchType, setCurrentSearchType] = useState("keyword");
+  // const [currentSearchType, setCurrentSearchType] = useState("keyword");
+  const { data: genres, isSuccess } = useGetGenres(type);
+  const [searchParams] = useSearchParams();
+  const currentSearchType = searchParams.get("searchType") || "keyword";
   const [keyWord, setKeyWord] = useState({ searchInput: "" });
+  const [searchedByKeywordRes, setSearchByKeywordRes] =
+    useState<ISearchByResponse>();
+  const selectedGenresIds = useMemo((): number[] => {
+    const genresSelected = searchParams.get("genres");
+    const genresArray = genresSelected
+      ? genresSelected.split("+").map(Number)
+      : [];
 
-  const [{ searchResult, searchLoader, searchError }] = useSearchBy(
-    selectedGenres,
+    if (genresArray.length > 0 && isSuccess) {
+      return genres
+        .filter((genre) => genresArray.includes(genre.id))
+        .map((genre) => genre.id);
+    }
+
+    return [];
+  }, [searchParams, genres, isSuccess]);
+  const {
+    data: searchedByGenreRes,
+    isLoading: isSearchByGenrePending,
+    isError: isSearchByGenreError,
+  } = useSearchByGenre(selectedGenresIds, type, currentPage);
+  const searchByKeyword = useSearchByKeyword(
     keyWord.searchInput,
     type,
-    currentPage,
-    shouldSearch,
-    setShouldSearch,
-    currentSearchType
+    currentPage
   );
 
   const handlePageClick = (e: { selected: React.SetStateAction<number> }) => {
     setCurrentPage(e.selected);
-    setShouldSearch(true);
   };
 
-  const handleSubmitForm = (formData: IFormData) => {
+  const handleSubmitForm = async (formData: IFormData) => {
     setKeyWord(formData);
-    setShouldSearch(true);
-    setCurrentPage(0);
+    const res = await searchByKeyword.mutateAsync();
+    setSearchByKeywordRes(res);
   };
 
-  const handleSearchSwitcher = (type: TSearchSwitcher) => {
-    setCurrentSearchType(type);
-    setShouldSearch(false);
-    setSelectedGenres([]);
-    setCurrentPage(0);
-  };
-
-  const handleGenreClick = (e: React.SyntheticEvent) => {
-    const isAlreadySelected = selectedGenres.find(
-      (genre) => genre.name === e.currentTarget.textContent
-    );
-    if (isAlreadySelected) {
-      setSelectedGenres(
-        selectedGenres.filter((genre) => genre.id != isAlreadySelected.id)
-      );
-      setShouldSearch(true);
-      setCurrentPage(0);
-      return;
-    }
-
-    if (isSuccess) {
-      console.log(genres);
-      const findedGenre = genres.find(
-        (genre) => genre.name === e.currentTarget.textContent
-      );
-      if (findedGenre) {
-        setSelectedGenres((prevArray) => [...prevArray, findedGenre]);
-      }
-    }
-
-    setShouldSearch(true);
-    setCurrentPage(0);
-  };
+  // const handleSearchSwitcher = (type: TSearchSwitcher) => {
+  //   setCurrentSearchType(type);
+  //   setSearchParams({ genres: "" });
+  // };
 
   return (
     <div className={style.moviePage_container}>
-      {searchLoader && <Loader />}
-      {searchError && <MyError />}
+      {isSearchByGenrePending && <Loader />}
+      {isSearchByGenreError && <MyError />}
+
       <h2 className={style.pageTitle}>Movies</h2>
-      <SearchSwitcher handleSearchSwitcher={handleSearchSwitcher} />
+      {/* <SearchSwitcher handleSearchSwitcher={handleSearchSwitcher} /> */}
+      <SearchSwitcher />
 
       {currentSearchType === "keyword" && (
         <SearchWidget onFormSubmit={handleSubmitForm} />
       )}
 
       {currentSearchType === "genre" && isSuccess && (
-        <Genres
-          handleGenreClick={handleGenreClick}
-          selectedGenres={selectedGenres}
-          genres={genres || []}
-          isLoading={isPending}
-          error={isError}
+        <Genres contentType={type} />
+      )}
+
+      {searchedByGenreRes && searchedByGenreRes.results.length > 0 && (
+        <ItemCardsList
+          recievedData={searchedByGenreRes.results}
+          mainType={type}
+        />
+      )}
+      {searchedByKeywordRes && currentSearchType === "keyword" && (
+        <ItemCardsList
+          recievedData={searchedByKeywordRes.results || []}
+          mainType={type}
         />
       )}
 
-      {searchResult &&
-        searchResult.results.length > 0 &&
-        (selectedGenres.length > 0 || currentSearchType === "keyword") && (
-          <ItemCardsList recievedData={searchResult.results} mainType={type} />
-        )}
-
-      {searchResult &&
-        searchResult.total_pages &&
-        (selectedGenres.length > 0 || currentSearchType === "keyword") && (
+      {searchedByGenreRes && searchedByGenreRes.total_pages && (
+        <Pagination
+          totalPageCount={
+            searchedByGenreRes.total_pages > 500
+              ? 500
+              : searchedByGenreRes.total_pages
+          }
+          onPageChange={handlePageClick}
+          forcePage={currentPage}
+        />
+      )}
+      {searchedByKeywordRes &&
+        searchedByKeywordRes.total_pages &&
+        currentSearchType === "keyword" && (
           <Pagination
             totalPageCount={
-              searchResult.total_pages > 500 ? 500 : searchResult.total_pages
+              searchedByKeywordRes.total_pages > 500
+                ? 500
+                : searchedByKeywordRes.total_pages
             }
             onPageChange={handlePageClick}
             forcePage={currentPage}
@@ -123,3 +125,73 @@ export const MoviePage = () => {
     </div>
   );
 };
+
+// const handleGenreClick = (e: React.SyntheticEvent) => {
+//   const isAlreadySelected = selectedGenres.find(
+//     (genre) => genre.name === e.currentTarget.textContent
+//   );
+//   if (isAlreadySelected) {
+//     setSelectedGenres(
+//       selectedGenres.filter((genre) => genre.id != isAlreadySelected.id)
+//     );
+//     // setShouldSearch(true);
+//     // setCurrentPage(0);
+//     return;
+//   }
+
+//   if (isSuccess) {
+//     console.log(genres);
+//     const findedGenre = genres.find(
+//       (genre) => genre.name === e.currentTarget.textContent
+//     );
+//     if (findedGenre) {
+//       setSelectedGenres((prevArray) => [...prevArray, findedGenre]);
+//     }
+//   }
+
+// <Genres
+//   handleGenreClick={handleGenreClick}
+//   selectedGenres={selectedGenres}
+//   genres={genres || []}
+//   isLoading={isPending}
+//   error={isError}
+// />
+
+//   // setShouldSearch(true);
+//   // setCurrentPage(0);
+// };
+
+{
+  /* {searchedByGenreRes &&
+        searchedByGenreRes.results.length > 0 &&
+        (selectedGenres.length > 0 || currentSearchType === "keyword") && (
+          <ItemCardsList
+            recievedData={searchedByGenreRes.results}
+            mainType={type}
+          />
+        )} */
+}
+
+{
+  /* {searchResult &&
+        searchResult.results.length > 0 &&
+        (selectedGenres.length > 0 || currentSearchType === "keyword") && (
+          <ItemCardsList recievedData={searchResult.results} mainType={type} />
+        )} */
+}
+
+{
+  /* {searchedByGenreRes &&
+        searchedByGenreRes.total_pages &&
+        (selectedGenres.length > 0 || currentSearchType === "keyword") && (
+          <Pagination
+            totalPageCount={
+              searchedByGenreRes.total_pages > 500
+                ? 500
+                : searchedByGenreRes.total_pages
+            }
+            onPageChange={handlePageClick}
+            forcePage={currentPage}
+          />
+        )} */
+}

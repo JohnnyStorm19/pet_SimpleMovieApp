@@ -3,20 +3,21 @@ import MyError from "../Error/MyError";
 import Loader from "../Loader/Loader";
 import style from "./Genres.module.css";
 
+interface IGenresProps {
+  handleGenreClick: (e: React.SyntheticEvent) => void;
+  selectedGenres: [] | ISelectedGenre[];
+  genres: [] | ISelectedGenre[];
+  isLoading: boolean;
+  error: boolean;
+}
+
 const Genres = ({
   handleGenreClick,
   selectedGenres,
   genres,
   isLoading,
   error,
-}: {
-  handleGenreClick: (e: React.SyntheticEvent) => void
-  selectedGenres: [] | ISelectedGenre[];
-  genres: [] | ISelectedGenre[];
-  isLoading: boolean;
-  error: boolean;
-}) => {
-
+}: IGenresProps) => {
   const setClassName = (genre: { id: number; name: string }) => {
     const isSelected = selectedGenres.find((o) => o.id === genre.id);
     return isSelected

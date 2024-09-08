@@ -1,2 +1,2 @@
 export { Loader } from "./Loader";
-export { SearchSwitcher } from "./SearchSwitcher";
+export { MyError } from "./Error";
