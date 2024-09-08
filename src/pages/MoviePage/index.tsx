@@ -1,27 +1,24 @@
-// import Genres from "@/components/Genres/Genres";
+import MyError from "@/components/Error/MyError";
 import ItemCardsList from "@/components/ItemCardsList/ItemCardsList";
 import SearchWidget from "@/components/SearchWidget/SearchWidget";
 import Pagination from "@/components/UI/Pagination/Pagination";
-import { SearchSwitcher } from "@/widgets";
-import { IFormData } from "@/types/models";
-import React, { useMemo, useState } from "react";
-import MyError from "@/components/Error/MyError";
-import { Loader } from "@/shared/ui";
-import style from "./MoviePage.module.css";
 import { useGetGenres } from "@/shared/hooks/use-get-genres";
 import { useSearchByGenre } from "@/shared/hooks/use-search-by-genre";
 import { useSearchByKeyword } from "@/shared/hooks/use-search-by-keyword";
-import { Genres } from "@/widgets/Genres/ui";
-import { useSearchParams } from "react-router-dom";
 import { ISearchByResponse } from "@/shared/models/search-by-response.interface";
+import { Loader } from "@/shared/ui";
+import { IFormData } from "@/types/models";
+import { SearchSwitcher } from "@/widgets";
+import { Genres } from "@/widgets/Genres/ui";
+import React, { useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import style from "./MoviePage.module.css";
 
 // todo отрефакторить компонент!
 
 export const MoviePage = () => {
   const type = "movie";
   const [currentPage, setCurrentPage] = useState(0);
-  // const [currentSearchType, setCurrentSearchType] = useState("keyword");
-  // const [currentSearchType, setCurrentSearchType] = useState("keyword");
   const { data: genres, isSuccess } = useGetGenres(type);
   const [searchParams] = useSearchParams();
   const currentSearchType = searchParams.get("searchType") || "keyword";
@@ -62,19 +59,12 @@ export const MoviePage = () => {
     const res = await searchByKeyword.mutateAsync();
     setSearchByKeywordRes(res);
   };
-
-  // const handleSearchSwitcher = (type: TSearchSwitcher) => {
-  //   setCurrentSearchType(type);
-  //   setSearchParams({ genres: "" });
-  // };
-
   return (
     <div className={style.moviePage_container}>
       {isSearchByGenrePending && <Loader />}
       {isSearchByGenreError && <MyError />}
 
       <h2 className={style.pageTitle}>Movies</h2>
-      {/* <SearchSwitcher handleSearchSwitcher={handleSearchSwitcher} /> */}
       <SearchSwitcher />
 
       {currentSearchType === "keyword" && (
