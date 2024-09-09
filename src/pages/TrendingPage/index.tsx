@@ -1,9 +1,10 @@
+// import { useTrendings } from "@/hooks/useTrendings";
 import MyError from "@/components/Error/MyError";
 import ItemCardsList from "@/components/ItemCardsList/ItemCardsList";
 import Pagination from "@/components/UI/Pagination/Pagination";
-import SearchSwitcherNew from "@/components/UI/SearchSwitcherNew/SearchSwitcherNew";
-import { useTrendings } from "@/hooks/useTrendings";
+import { useGetTrendingItems } from "@/shared/hooks/use-get-trending-items";
 import { Loader } from "@/shared/ui";
+import { TrendingSwitcher } from "@/widgets";
 import { useState } from "react";
 import style from "./TrendingPage.module.css";
 
@@ -12,32 +13,30 @@ type TContentSwitcher = "all" | "movie" | "tv";
 
 export const TrendingPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
-  const [shouldSearch, setShouldSearch] = useState(true);
   const [periodSwitcherValue, setPeriodSwitcherValue] =
     useState<TPeriodSwitcher>("week");
   const [contentSwitcherValue, setContentSwitcherValue] =
     useState<TContentSwitcher>("all");
-
-  const [{ trendingData, isLoading, error }] = useTrendings(
-    currentPage,
-    periodSwitcherValue,
+  const {
+    data: trendingData,
+    isSuccess,
+    isLoading,
+    error,
+  } = useGetTrendingItems({
     contentSwitcherValue,
-    shouldSearch,
-    setShouldSearch
-  );
+    periodSwitcherValue,
+    currentPage,
+  });
 
   const handlePageClick = (e: { selected: React.SetStateAction<number> }) => {
     setCurrentPage(e.selected);
-    setShouldSearch(true);
   };
 
   const handleContentSwitcher = (type: TContentSwitcher) => {
-    setShouldSearch(true);
     setCurrentPage(0);
     setContentSwitcherValue(type);
   };
   const handlePeriodSwitcher = (type: TPeriodSwitcher) => {
-    setShouldSearch(true);
     setCurrentPage(0);
     setPeriodSwitcherValue(type);
   };
@@ -49,13 +48,13 @@ export const TrendingPage = () => {
 
       <div className={style.trending_container}>
         <h2 className={style.pageTitle}>Trending now</h2>
-        <SearchSwitcherNew
+        <TrendingSwitcher
           handlePeriodSwitcher={handlePeriodSwitcher}
           handleContentSwitcher={handleContentSwitcher}
           contentType={contentSwitcherValue}
           periodType={periodSwitcherValue}
         />
-        {trendingData && trendingData.results.length > 0 && (
+        {isSuccess && (
           <ItemCardsList
             recievedData={trendingData.results}
             mainType="trending"
@@ -74,3 +73,12 @@ export const TrendingPage = () => {
     </>
   );
 };
+
+// const [shouldSearch, setShouldSearch] = useState(true);
+// const [{ trendingData, isLoading, error }] = useTrendings(
+//   currentPage,
+//   periodSwitcherValue,
+//   contentSwitcherValue,
+//   shouldSearch,
+//   setShouldSearch
+// );

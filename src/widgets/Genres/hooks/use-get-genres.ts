@@ -2,7 +2,7 @@ import { getRequestConfig, REQUEST_URLS } from "@/services/api/requestApi";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { IRecievedGenres } from "@/types/models";
-import { TContentType } from "@/shared/models/TContentType";
+import { TContentType } from "@/shared/models/content-type.type";
 
 export const useGetGenres = (type: TContentType) => {
   const requestConfig = getRequestConfig({

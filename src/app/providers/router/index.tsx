@@ -1,6 +1,7 @@
 import { AppLayout } from "@/app/layout";
 import { lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 const MainPage = lazy(() =>
   import("@/pages").then((module) => ({ default: module.MainPage }))
 );

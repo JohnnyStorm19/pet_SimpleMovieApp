@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { IRecievedGenres } from "../types/models";
 import axios from "axios";
 import { REQUEST_URLS, getRequestConfig } from "../services/api/requestApi";
-import { TContentType } from "@/shared/models/TContentType";
+import { TContentType } from "@/shared/models/content-type.type";
 
 export const useGenres = (type: TContentType) => {
   const [genres, setGenres] = useState<IRecievedGenres[] | []>([]);

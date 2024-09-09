@@ -21,6 +21,7 @@
 }
 
 .backLink {
+  cursor: pointer;
   text-decoration: none;
   color: #ffffff;
   font-family: var(--btn-font-family);

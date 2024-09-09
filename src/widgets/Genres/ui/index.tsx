@@ -2,7 +2,7 @@ import { IRecievedGenres } from "@/types/models";
 import style from "./Genres.module.css";
 import { Loader, MyError } from "@/shared/ui";
 import { useGetGenres } from "../hooks/use-get-genres";
-import { TContentType } from "@/shared/models/TContentType";
+import { TContentType } from "@/shared/models/content-type.type";
 import { useSearchParams } from "react-router-dom";
 import { useMemo } from "react";
 
@@ -41,21 +41,16 @@ export const Genres = ({ contentType }: IGenresProps) => {
 
   const handleGenreClick = (genreId: number) => {
     console.log(genreId, "genreId");
-    // Получаем текущие выбранные жанры из URL
     const prevGenres = new Set(searchParams.get("genres")?.split("+") || []);
     console.log(prevGenres, "prevGenres");
 
-    // Добавляем или удаляем жанр
     if (prevGenres.has(String(genreId))) {
       prevGenres.delete(String(genreId));
     } else {
       prevGenres.add(String(genreId));
     }
 
-    // Преобразуем Set обратно в строку и обновляем URL параметры
     const genresString = Array.from(prevGenres).join("+");
-
-    // Устанавливаем обновленный список жанров в URL
     setSearchParams({ genres: genresString, searchType: "genre" });
   };
 

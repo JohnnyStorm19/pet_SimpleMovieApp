@@ -1,5 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import style from "./PageHeader.module.css";
+import { AppRoutes } from "@/shared/routes";
 
 export const Header = () => {
   const navigator = useNavigate();
@@ -12,13 +13,12 @@ export const Header = () => {
     return <></>;
   }
 
-  // todo если это главная - скрывать header
   return (
     <header className={style.pageHeader}>
-      <Link to={"/"} className={style.backLink} onClick={handleClick}>
+      <span className={style.backLink} onClick={handleClick}>
         Back
-      </Link>
-      <Link to={"/"} className={style.mainPageLink}>
+      </span>
+      <Link to={AppRoutes.MAIN} className={style.mainPageLink}>
         Main page
       </Link>
     </header>

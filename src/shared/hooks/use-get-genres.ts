@@ -1,6 +1,6 @@
 import { getRequestConfig, REQUEST_URLS } from "@/services/api/requestApi";
 import { useQuery } from "@tanstack/react-query";
-import { TContentType } from "../models/TContentType";
+import { TContentType } from "../models/content-type.type";
 import axios from "axios";
 import { IRecievedGenres } from "@/types/models";
 
