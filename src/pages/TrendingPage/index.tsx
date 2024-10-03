@@ -7,16 +7,22 @@ import { Loader } from "@/shared/ui";
 import { TrendingSwitcher } from "@/widgets";
 import { useState } from "react";
 import style from "./TrendingPage.module.css";
-
-type TPeriodSwitcher = "week" | "day";
-type TContentSwitcher = "all" | "movie" | "tv";
+import { useSearchParams } from "react-router-dom";
+import {
+  TContentSwitcher,
+  TPeriodSwitcher,
+} from "@/widgets/TrendingSwitcher/model/switcher-options.type";
 
 export const TrendingPage = () => {
+  const mainType = "trending";
   const [currentPage, setCurrentPage] = useState(0);
-  const [periodSwitcherValue, setPeriodSwitcherValue] =
-    useState<TPeriodSwitcher>("week");
-  const [contentSwitcherValue, setContentSwitcherValue] =
-    useState<TContentSwitcher>("all");
+  const [searchParams] = useSearchParams();
+
+  const contentSwitcherValue = (searchParams.get("contentType") ||
+    "all") as TContentSwitcher;
+  const periodSwitcherValue = (searchParams.get("period") ||
+    "week") as TPeriodSwitcher;
+
   const {
     data: trendingData,
     isSuccess,
@@ -32,15 +38,6 @@ export const TrendingPage = () => {
     setCurrentPage(e.selected);
   };
 
-  const handleContentSwitcher = (type: TContentSwitcher) => {
-    setCurrentPage(0);
-    setContentSwitcherValue(type);
-  };
-  const handlePeriodSwitcher = (type: TPeriodSwitcher) => {
-    setCurrentPage(0);
-    setPeriodSwitcherValue(type);
-  };
-
   return (
     <>
       {isLoading && <Loader />}
@@ -48,16 +45,11 @@ export const TrendingPage = () => {
 
       <div className={style.trending_container}>
         <h2 className={style.pageTitle}>Trending now</h2>
-        <TrendingSwitcher
-          handlePeriodSwitcher={handlePeriodSwitcher}
-          handleContentSwitcher={handleContentSwitcher}
-          contentType={contentSwitcherValue}
-          periodType={periodSwitcherValue}
-        />
+        <TrendingSwitcher />
         {isSuccess && (
           <ItemCardsList
             recievedData={trendingData.results}
-            mainType="trending"
+            mainType={mainType}
           />
         )}
         {trendingData && trendingData.total_pages && (

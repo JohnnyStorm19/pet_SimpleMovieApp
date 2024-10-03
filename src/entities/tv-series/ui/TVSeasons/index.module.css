@@ -1,0 +1,7 @@
+.seasons_container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    row-gap: 1rem;
+    font-family: var(--btn-font-family);
+    color: #FFFFFF;
+}

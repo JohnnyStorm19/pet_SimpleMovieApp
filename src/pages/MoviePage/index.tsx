@@ -1,12 +1,13 @@
-import MyError from "@/components/Error/MyError";
 import ItemCardsList from "@/components/ItemCardsList/ItemCardsList";
 import SearchWidget from "@/components/SearchWidget/SearchWidget";
 import Pagination from "@/components/UI/Pagination/Pagination";
-import { useGetGenres } from "@/shared/hooks/use-get-genres";
-import { useSearchByGenre } from "@/shared/hooks/use-search-by-genre";
-import { useSearchByKeyword } from "@/shared/hooks/use-search-by-keyword";
+import {
+  useGetGenres,
+  useSearchByGenre,
+  useSearchByKeyword,
+} from "@/shared/hooks";
 import { ISearchByResponse } from "@/shared/models/search-by-response.interface";
-import { Loader } from "@/shared/ui";
+import { Loader, MyError } from "@/shared/ui";
 import { IFormData } from "@/types/models";
 import { SearchSwitcher } from "@/widgets";
 import { Genres } from "@/widgets/Genres/ui";

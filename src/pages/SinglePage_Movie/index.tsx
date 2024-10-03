@@ -1,49 +1,35 @@
-import { useParams } from "react-router-dom";
-import { useSearchById } from "@/hooks/useSearchById";
-import { useState } from "react";
-import { useGetCredits } from "@/hooks/useGetCredits";
 import MovieCard_Single from "@/components/MovieCard_Single/MovieCard_Single";
-import style from "./SinglePage_Movie.module.css";
-import Cast from "@/components/Cast/Cast";
-import Crew from "@/components/Crew/Crew";
+import { useGetCredits, useSearchById } from "@/shared/hooks";
+import { Loader, MyError, SwitcherBtn } from "@/shared/ui";
 import { IRecievedMovieCard_SingleData } from "@/types/models";
-import MyError from "@/components/Error/MyError";
-import { Loader } from "@/shared/ui";
+import { Cast, Crew } from "@/widgets";
+import { useState } from "react";
+import style from "./SinglePage_Movie.module.css";
 
 export const SinglePage_Movie = () => {
   const type = "movie";
-  const [shouldSearch, setShouldSearch] = useState(true);
   const [isClickedCastBtn, setIsClickeCastdBtn] = useState(true);
   const [isClickedCrewBtn, setIsClickeCrewdBtn] = useState(false);
 
-  const { id } = useParams();
-  let numberId;
-  if (id) {
-    numberId = Number(id);
-  }
+  //todo сделай переключения в url
 
-  const [{ searchResult, searchLoader, searchError }] = useSearchById(
-    type,
-    numberId,
-    shouldSearch,
-    setShouldSearch
-  );
-  const [{ credits, creditsLoader, creditsError }] = useGetCredits(
-    type,
-    numberId,
-    shouldSearch,
-    setShouldSearch
-  );
+  const {
+    data: searchResult,
+    isLoading: searchLoader,
+    isError: searchError,
+    isSuccess: searchSuccess,
+  } = useSearchById(type);
 
-  const handleBtnClick = (e: React.SyntheticEvent<HTMLButtonElement>) => {
-    if (e.currentTarget.name === "cast") {
-      setIsClickeCastdBtn(true);
-      setIsClickeCrewdBtn(false);
-    }
-    if (e.currentTarget.name === "crew") {
-      setIsClickeCastdBtn(false);
-      setIsClickeCrewdBtn(true);
-    }
+  const {
+    data: credits,
+    isLoading: creditsLoader,
+    isError: creditsError,
+    isSuccess: creditsSuccess,
+  } = useGetCredits(type);
+
+  const handleBtnClick = (name: string) => {
+    setIsClickeCastdBtn(name === "cast");
+    setIsClickeCrewdBtn(name === "crew");
   };
 
   return (
@@ -51,7 +37,7 @@ export const SinglePage_Movie = () => {
       {(searchLoader || creditsLoader) && <Loader />}
       {(searchError || creditsError) && <MyError />}
 
-      {searchResult && credits && (
+      {searchSuccess && creditsSuccess && credits && (
         <MovieCard_Single
           searchResult={searchResult as IRecievedMovieCard_SingleData}
           credits={credits}
@@ -59,24 +45,18 @@ export const SinglePage_Movie = () => {
       )}
       <>
         <div className={style.details_menu}>
-          <button
-            className={`${style.switcher__btn} ${
-              isClickedCastBtn ? style.clicked : ""
-            }`}
-            onClick={handleBtnClick}
-            name="cast"
+          <SwitcherBtn
+            handleBtnClick={() => handleBtnClick("cast")}
+            isClicked={isClickedCastBtn}
           >
             Cast
-          </button>
-          <button
-            className={`${style.switcher__btn} ${
-              isClickedCrewBtn ? style.clicked : ""
-            }`}
-            onClick={handleBtnClick}
-            name="crew"
+          </SwitcherBtn>
+          <SwitcherBtn
+            handleBtnClick={() => handleBtnClick("crew")}
+            isClicked={isClickedCrewBtn}
           >
             Crew
-          </button>
+          </SwitcherBtn>
         </div>
         {isClickedCastBtn && <Cast type={type} />}
         {isClickedCrewBtn && <Crew type={type} />}

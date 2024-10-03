@@ -1,0 +1,44 @@
+.profile {
+  text-align: start;
+  font-family: var(--btn-font-family);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  cursor: pointer;
+  max-width: 140px;
+}
+
+.profile:hover :nth-child(1) {
+  color: var(--main-font-color);
+}
+
+.profile_info {
+  display: flex;
+  flex-direction: column;
+}
+
+.img__container {
+  background-image: url("https://placehold.co/138x175?text=Profile+Image");
+  width: 138px;
+  height: 175px;
+  border-radius: 10px;
+}
+
+.img__container img {
+  border-radius: 10px;
+}
+
+.role {
+  word-break: keep-all;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 576px) {
+  .profile_info {
+    font-size: 0.8rem;
+  }
+  .role {
+    font-size: 0.6rem;
+  }
+}

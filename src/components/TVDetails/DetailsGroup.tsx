@@ -6,6 +6,8 @@ interface IDetailsGroupProps {
   detailsArray: ITvCard_Single;
 }
 
+//todo удалить
+
 const DetailsGroup = ({ detailsArray }: IDetailsGroupProps) => {
   return (
     <div className={style.details__container}>

@@ -1,102 +1,65 @@
-import Cast from "@/components/Cast/Cast";
-import MyError from "@/components/Error/MyError";
-import Loader from "@/components/Loader/Loader";
-import TvCard_Single from "@/components/TvCard_Single/TvCard_Single";
-import TVDetails from "@/components/TVDetails/TVDetails";
-import TVSeasons from "@/components/TVDetails/TVSeasons/TVSeasons";
-import { useGetCredits } from "@/hooks/useGetCredits";
-import { useSearchById } from "@/hooks/useSearchById";
+import { TvCard_Single, TVDetails, TVSeasons } from "@/entities/tv-series";
+import { useSearchById } from "@/shared/hooks";
+import { Loader, MyError, SwitcherBtn } from "@/shared/ui";
 import { ITvCard_Single } from "@/types/models";
+import { Cast } from "@/widgets";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
-import style from "./SinglePage_TVSeries.module.css";
+import style from "./index.module.css";
 
 export const SinglePage_TVSeries = () => {
   const type = "tvSeries";
-  const [shouldSearch, setShouldSearch] = useState(true);
   const [isClickedCastBtn, setIsClickeCastdBtn] = useState(true);
   const [isClickedDetailsBtn, setIsClickedDetailsBtn] = useState(false);
   const [isClickedSeasonsBtn, setIsClickedSeasonsBtn] = useState(false);
 
-  const { id } = useParams();
-  let numberId;
-  if (id) {
-    numberId = Number(id);
-  }
+  const {
+    data: searchResult,
+    isLoading: searchLoader,
+    isError: searchError,
+    isSuccess: searchSuccess,
+  } = useSearchById(type);
 
-  const [{ searchResult, searchLoader, searchError }] = useSearchById(
-    type,
-    numberId,
-    shouldSearch,
-    setShouldSearch
-  );
-  const [{ credits, creditsLoader, creditsError }] = useGetCredits(
-    type,
-    numberId,
-    shouldSearch,
-    setShouldSearch
-  );
-  // ? Credits используем???
-
-  const handleBtnClick = (e: React.SyntheticEvent<HTMLButtonElement>) => {
-    if (e.currentTarget.name === "cast") {
-      setIsClickeCastdBtn(true);
-      setIsClickedDetailsBtn(false);
-      setIsClickedSeasonsBtn(false);
-    }
-    if (e.currentTarget.name === "details") {
-      setIsClickeCastdBtn(false);
-      setIsClickedDetailsBtn(true);
-      setIsClickedSeasonsBtn(false);
-    }
-    if (e.currentTarget.name === "seasons") {
-      setIsClickeCastdBtn(false);
-      setIsClickedDetailsBtn(false);
-      setIsClickedSeasonsBtn(true);
-    }
+  const handleSwitch = (name: string) => {
+    setIsClickeCastdBtn(name === "cast");
+    setIsClickedDetailsBtn(name === "details");
+    setIsClickedSeasonsBtn(name === "seasons");
   };
 
   return (
     <div className={style.TVSinglePage_container}>
-      {(searchLoader || creditsLoader) && <Loader />}
-      {(searchError || creditsError) && <MyError />}
+      {searchLoader && <Loader />}
+      {searchError && <MyError />}
 
-      {searchResult && credits && (
+      {searchSuccess && (
         <TvCard_Single searchResult={searchResult as ITvCard_Single} />
       )}
       <>
         <div className={style.details_menu}>
-          <button
-            className={`${style.switcher__btn} ${
-              isClickedCastBtn ? style.clicked : ""
-            }`}
-            onClick={handleBtnClick}
+          <SwitcherBtn
+            handleBtnClick={handleSwitch}
+            isClicked={isClickedCastBtn}
             name="cast"
           >
             Cast
-          </button>
-          <button
-            className={`${style.switcher__btn} ${
-              isClickedDetailsBtn ? style.clicked : ""
-            }`}
-            onClick={handleBtnClick}
+          </SwitcherBtn>
+          <SwitcherBtn
+            handleBtnClick={handleSwitch}
             name="details"
+            isClicked={isClickedDetailsBtn}
           >
             Details
-          </button>
-          <button
-            className={`${style.switcher__btn} ${
-              isClickedSeasonsBtn ? style.clicked : ""
-            }`}
-            onClick={handleBtnClick}
+          </SwitcherBtn>
+          <SwitcherBtn
+            handleBtnClick={handleSwitch}
             name="seasons"
+            isClicked={isClickedSeasonsBtn}
           >
             Seasons
-          </button>
+          </SwitcherBtn>
         </div>
-        {isClickedCastBtn && <Cast type={type} />}
-        {isClickedDetailsBtn && <TVDetails type={type} />}
-        {isClickedSeasonsBtn && <TVSeasons type={type} />}
+        {isClickedCastBtn && <Cast key="cast" type={type} />}
+        {isClickedDetailsBtn && <TVDetails key="details" />}
+        {isClickedSeasonsBtn && <TVSeasons key="seasons" />}
       </>
     </div>
   );

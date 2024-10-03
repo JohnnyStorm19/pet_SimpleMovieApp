@@ -1,0 +1,12 @@
+.TVSinglePage_container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.details_menu {
+    width: fit-content;
+    margin: 0 auto;
+    border: 2px solid #FFFFFF;
+    border-radius: 10px;
+}

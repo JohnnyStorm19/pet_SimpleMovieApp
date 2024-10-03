@@ -1,29 +1,39 @@
+import { useState } from "react";
 import style from "./TrendingSwitcher.module.css";
+import { useSearchParams } from "react-router-dom";
+import {
+  TContentSwitcher,
+  TPeriodSwitcher,
+} from "../model/switcher-options.type";
 
-type TPeriodSwitcher = "week" | "day";
-type TContentSwitcher = "all" | "movie" | "tv";
+export const TrendingSwitcher = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [periodSwitcherValue, setPeriodSwitcherValue] =
+    useState<TPeriodSwitcher>(
+      (searchParams.get("period") as TPeriodSwitcher) || "week"
+    );
+  const [contentSwitcherValue, setContentSwitcherValue] =
+    useState<TContentSwitcher>(
+      (searchParams.get("contentType") as TContentSwitcher) || "all"
+    );
 
-interface ISearchSwitcherProps {
-  handlePeriodSwitcher: (type: TPeriodSwitcher) => void;
-  handleContentSwitcher: (type: TContentSwitcher) => void;
-  periodType: "week" | "day";
-  contentType: "all" | "movie" | "tv";
-}
-
-export const TrendingSwitcher = ({
-  handlePeriodSwitcher,
-  handleContentSwitcher,
-  periodType,
-  contentType,
-}: ISearchSwitcherProps) => {
   const onPeriodBtnClick = (e: React.SyntheticEvent<HTMLButtonElement>) => {
     const searchType = e.currentTarget.getAttribute("data-search-type");
-    handlePeriodSwitcher(searchType as TPeriodSwitcher);
+    if (searchType) {
+      setPeriodSwitcherValue(searchType as TPeriodSwitcher);
+      setSearchParams({
+        contentType: contentSwitcherValue,
+        period: searchType,
+      });
+    }
   };
 
   const onContentBtnClick = (e: React.SyntheticEvent<HTMLButtonElement>) => {
     const searchType = e.currentTarget.getAttribute("data-search-type");
-    handleContentSwitcher(searchType as TContentSwitcher);
+    if (searchType) {
+      setContentSwitcherValue(searchType as TContentSwitcher);
+      setSearchParams({ period: periodSwitcherValue, contentType: searchType });
+    }
   };
 
   return (
@@ -33,7 +43,7 @@ export const TrendingSwitcher = ({
           data-search-type="day"
           onClick={onPeriodBtnClick}
           className={`${style.switcher__btn} ${
-            periodType === "day" ? style.clicked : ""
+            periodSwitcherValue === "day" ? style.clicked : ""
           }`}
         >
           Trending this day
@@ -42,7 +52,7 @@ export const TrendingSwitcher = ({
           data-search-type="week"
           onClick={onPeriodBtnClick}
           className={`${style.switcher__btn} ${
-            periodType === "week" ? style.clicked : ""
+            periodSwitcherValue === "week" ? style.clicked : ""
           }`}
         >
           Trending this week
@@ -53,7 +63,7 @@ export const TrendingSwitcher = ({
           data-search-type="all"
           onClick={onContentBtnClick}
           className={`${style.switcher__btn} ${
-            contentType === "all" ? style.clicked : ""
+            contentSwitcherValue === "all" ? style.clicked : ""
           }`}
         >
           Trending all
@@ -62,7 +72,7 @@ export const TrendingSwitcher = ({
           data-search-type="movie"
           onClick={onContentBtnClick}
           className={`${style.switcher__btn} ${
-            contentType === "movie" ? style.clicked : ""
+            contentSwitcherValue === "movie" ? style.clicked : ""
           }`}
         >
           Trending movies
@@ -71,7 +81,7 @@ export const TrendingSwitcher = ({
           data-search-type="tv"
           onClick={onContentBtnClick}
           className={`${style.switcher__btn} ${
-            contentType === "tv" ? style.clicked : ""
+            contentSwitcherValue === "tv" ? style.clicked : ""
           }`}
         >
           Trending serials / TVshows

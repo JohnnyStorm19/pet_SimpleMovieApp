@@ -7,6 +7,8 @@ interface ITvCard_SingleProps {
   searchResult: ITvCard_Single;
 }
 
+// todo удалить
+
 const getProductionYears = (result: ITvCard_Single) => {
   const start = result.first_air_date.slice(0, 4);
   if (result.in_production) {
@@ -20,13 +22,14 @@ const getProductionYears = (result: ITvCard_Single) => {
 };
 
 const TvCard_Single = ({ searchResult }: ITvCard_SingleProps) => {
+
   return (
     <div className={style.tvCard_single_container}>
       <main className={style.main}>
         <div className={style.img_container}>
           <img
             src={`${REQUEST_URLS.images.IMG_300}/${searchResult.poster_path}`}
-            alt="poster"
+            alt={`${searchResult.name} poster`}
             loading="lazy"
           />
         </div>
@@ -34,20 +37,23 @@ const TvCard_Single = ({ searchResult }: ITvCard_SingleProps) => {
         <div className={style.details}>
           <h4 className={style.tagline}>{searchResult.tagline}</h4>
           <h4 className={style.first_air_date}>
-            <span className={style.detailTitle}>Production years: </span>{getProductionYears(searchResult)}
+            <span className={style.detailTitle}>Production years: </span>
+            {getProductionYears(searchResult)}
           </h4>
           {searchResult.vote_average > 0 && searchResult.vote_average && (
-            <ProjectRating vote_average={searchResult.vote_average}/>
+            <ProjectRating vote_average={searchResult.vote_average} />
           )}
           {searchResult.genres.length > 0 && (
             <div>
               <span className={style.detailTitle}>Genres: </span>
-              <span>{searchResult.genres.map((genre, index, array) => {
-                if (index === array.length - 1) {
-                  return genre.name;
-                }
-                return genre.name + ', ';
-              })}</span>
+              <span>
+                {searchResult.genres.map((genre, index, array) => {
+                  if (index === array.length - 1) {
+                    return genre.name;
+                  }
+                  return genre.name + ", ";
+                })}
+              </span>
             </div>
           )}
           <p className={style.overview}>{searchResult.overview}</p>

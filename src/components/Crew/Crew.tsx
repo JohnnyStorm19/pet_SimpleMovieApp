@@ -1,35 +1,24 @@
-import { useParams } from "react-router-dom";
 import { ICreditsCrew, TGenresFor } from "../../types/models";
-import { useState } from "react";
-import { useGetCredits } from "../../hooks/useGetCredits";
-import CrewJobsGroup from "./CrewJobsGroup";
+import { CrewJobsGroup } from "./CrewJobsGroup";
 import Loader from "../Loader/Loader";
 import MyError from "../Error/MyError";
+import { useGetCredits } from "@/shared/hooks";
 
-const Crew = ({ type }: { type: TGenresFor }) => {
-  const { id } = useParams();
-  const [shouldSearch, setShouldSearch] = useState(true);
-  let numberId;
-  if (id) {
-    numberId = Number(id);
-  }
-  const [{ credits, creditsLoader, creditsError }] = useGetCredits(
-    type,
-    numberId,
-    shouldSearch,
-    setShouldSearch
-  );
+// todo убрать
+
+export const Crew = ({ type }: { type: TGenresFor }) => {
+  const {
+    data: credits,
+    isLoading: creditsLoader,
+    isError: creditsError,
+  } = useGetCredits(type);
 
   return (
     <div>
       {creditsLoader && <Loader />}
       {creditsError && <MyError />}
-      
-      {credits && (
-        <CrewJobsGroup crewArray={credits.crew as ICreditsCrew[]}/>
-      )}
+
+      {credits && <CrewJobsGroup crewArray={credits.crew as ICreditsCrew[]} />}
     </div>
   );
 };
-
-export default Crew;

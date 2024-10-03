@@ -1,3 +1,4 @@
+import { ProjectRating } from "@/shared/ui";
 import { REQUEST_URLS } from "../../services/api/requestApi";
 import { getDirector } from "../../services/utils/dealWithCredits";
 import {
@@ -6,8 +7,9 @@ import {
   IUseGetCreditsData,
 } from "../../types/models";
 import DirectedBy from "../DirectedBy/DirectedBy";
-import ProjectRating from "../ProjectRating/ProjectRating";
 import style from "./MovieCard_Single.module.css";
+
+//todo ВСЕ РЕФАКТОРИТЬ НАХЕР
 
 interface IMovieCard_SingleProps {
   searchResult: IRecievedMovieCard_SingleData;
@@ -51,6 +53,7 @@ const MovieCard_Single = ({
         <h2 className={style.title}>{searchResult.title}</h2>
       </header>
       <h3 className={style.release_date}>
+        {/* {searchResult.release_date.slice(0, 4)} */}
         {searchResult.release_date.slice(0, 4)}
       </h3>
       {getDirector(credits.crew as ICreditsCrew[]) && (
@@ -70,16 +73,18 @@ const MovieCard_Single = ({
           {searchResult.genres.length > 0 && (
             <div>
               <span className={style.detailTitle}>Genres: </span>
-              <span>{searchResult.genres.map((genre, index, array) => {
-                if (index === array.length - 1) {
-                  return genre.name;
-                }
-                return genre.name + ', ';
-              })}</span>
+              <span>
+                {searchResult.genres.map((genre, index, array) => {
+                  if (index === array.length - 1) {
+                    return genre.name;
+                  }
+                  return genre.name + ", ";
+                })}
+              </span>
             </div>
           )}
           {searchResult.vote_average > 0 && searchResult.vote_average && (
-            <ProjectRating vote_average={searchResult.vote_average}/>
+            <ProjectRating vote_average={searchResult.vote_average} />
           )}
           {searchResult.runtime > 0 && searchResult.runtime && (
             <div>

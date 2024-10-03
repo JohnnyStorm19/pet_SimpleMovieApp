@@ -1,52 +1,55 @@
-import { useState } from "react";
-import { useGetCredits } from "../../hooks/useGetCredits";
+import { useGetCredits } from "@/shared/hooks/use-get-credits";
+import { Link, useLocation } from "react-router-dom";
 import { ICreditsCast, TGenresFor } from "../../types/models";
-import { Link, useLocation, useParams } from "react-router-dom";
+import MyError from "../Error/MyError";
+import Loader from "../Loader/Loader";
 import style from "./Cast.module.css";
 import CastItem from "./CastItem";
 import TVCastItem from "./TVCastItem";
-import Loader from "../Loader/Loader";
-import MyError from "../Error/MyError";
 
-const Cast = ({ type }: { type: TGenresFor }) => {
-  const { id } = useParams();
-  const [shouldSearch, setShouldSearch] = useState(true);
+// todo отрефактори компонент! декомпозируй, вынеси это в фичи или в ui
+
+export const Cast = ({ type }: { type: TGenresFor }) => {
   const location = useLocation();
 
-  let numberId;
-  if (id) {
-    numberId = Number(id);
-  }
-  const [{ credits, creditsLoader, creditsError }] = useGetCredits(
-    type,
-    numberId,
-    shouldSearch,
-    setShouldSearch
-  );
+  const {
+    data: credits,
+    isLoading: creditsLoader,
+    isError: creditsError,
+    isSuccess,
+  } = useGetCredits(type);
 
   return (
-    <div className={type === "movie" ? style.details_wrapper : style.details_wrapper_TV}>
-      
+    <div
+      className={
+        type === "movie" ? style.details_wrapper : style.details_wrapper_TV
+      }
+    >
       {creditsLoader && <Loader />}
       {creditsError && <MyError />}
 
-      {credits && (
+      {isSuccess && (
         <>
-          {credits.cast.map((person) => {
-            if (type === 'movie') {
+          {credits?.cast.map((person) => {
+            if (type === "movie") {
               return (
-                <CastItem key={person.id} person={person as ICreditsCast}/>
+                <CastItem key={person.id} person={person as ICreditsCast} />
               );
             }
-            return <TVCastItem key={person.id} person={person as ICreditsCast}/>
+            return (
+              <TVCastItem key={person.id} person={person as ICreditsCast} />
+            );
           })}
         </>
       )}
       {type === "tvSeries" && (
-        <Link to={`${location.pathname}/cast-full`} className={style.goToFullBtn}>Go to full cast and crew</Link>
+        <Link
+          to={`${location.pathname}/cast-full`}
+          className={style.goToFullBtn}
+        >
+          Go to full cast and crew
+        </Link>
       )}
     </div>
   );
 };
-
-export default Cast;
