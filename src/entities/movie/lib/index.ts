@@ -1,0 +1,1 @@
+export { getDirector } from "./dealWithCredits";
