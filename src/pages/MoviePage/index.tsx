@@ -3,6 +3,7 @@ import SearchWidget from "@/components/SearchWidget/SearchWidget";
 import Pagination from "@/components/UI/Pagination/Pagination";
 import {
   useGetGenres,
+  useGetSearchParams,
   useSearchByGenre,
   useSearchByKeyword,
 } from "@/shared/hooks";
@@ -12,7 +13,6 @@ import { IFormData } from "@/types/models";
 import { SearchSwitcher } from "@/widgets";
 import { Genres } from "@/widgets/Genres/ui";
 import React, { useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
 import style from "./MoviePage.module.css";
 
 // todo отрефакторить компонент!
@@ -21,8 +21,10 @@ export const MoviePage = () => {
   const type = "movie";
   const [currentPage, setCurrentPage] = useState(0);
   const { data: genres, isSuccess } = useGetGenres(type);
-  const [searchParams] = useSearchParams();
-  const currentSearchType = searchParams.get("searchType") || "keyword";
+  const { searchParams, currentParam: currentSearchType } = useGetSearchParams({
+    getParam: "searchType",
+    defaultParam: "keyword",
+  });
   const [keyWord, setKeyWord] = useState({ searchInput: "" });
   const [searchedByKeywordRes, setSearchByKeywordRes] =
     useState<ISearchByResponse>();
