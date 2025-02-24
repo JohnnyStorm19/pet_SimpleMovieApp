@@ -1,22 +1,22 @@
-import { IRecievedGenres } from "@/types/models";
-import style from "./Genres.module.css";
 import { Loader, MyError } from "@/shared/ui";
-import { useGetGenres } from "../hooks/use-get-genres";
-import { TContentType } from "@/shared/models/content-type.type";
-import { useSearchParams } from "react-router-dom";
+import { IRecievedGenres } from "@/types/models";
 import { useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
+import style from "./Genres.module.css";
 
 interface IGenresProps {
-  contentType: TContentType;
+  genres: IRecievedGenres[];
+  isSuccess: boolean;
+  isPending: boolean;
+  isError: boolean;
 }
 
-export const Genres = ({ contentType }: IGenresProps) => {
-  const {
-    data: genres,
-    isPending,
-    isError,
-    isSuccess,
-  } = useGetGenres(contentType);
+export const Genres = ({
+  genres,
+  isSuccess,
+  isPending,
+  isError,
+}: IGenresProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const selectedGenres = useMemo((): IRecievedGenres[] => {
@@ -58,19 +58,18 @@ export const Genres = ({ contentType }: IGenresProps) => {
     <div className={style.genres__container}>
       {isPending && <Loader />}
       {isError && <MyError />}
-      {isSuccess &&
-        genres.map((genre) => {
-          const currentClassName = setClassName(genre);
-          return (
-            <span
-              key={genre.id}
-              className={currentClassName}
-              onClick={() => handleGenreClick(genre.id)}
-            >
-              {genre.name}
-            </span>
-          );
-        })}
+      {genres.map((genre) => {
+        const currentClassName = setClassName(genre);
+        return (
+          <span
+            key={genre.id}
+            className={currentClassName}
+            onClick={() => handleGenreClick(genre.id)}
+          >
+            {genre.name}
+          </span>
+        );
+      })}
     </div>
   );
 };

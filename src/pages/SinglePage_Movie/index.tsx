@@ -1,4 +1,3 @@
-import MovieCard_Single from "@/components/MovieCard_Single/MovieCard_Single";
 import {
   useGetCredits,
   useGetSearchParams,
@@ -8,6 +7,7 @@ import { Loader, MyError, SwitcherBtn } from "@/shared/ui";
 import { IRecievedMovieCard_SingleData } from "@/types/models";
 import { Cast, Crew } from "@/widgets";
 import style from "./SinglePage_Movie.module.css";
+import { MovieCard_Single } from "@/entities/movie/ui/SingleCard";
 
 export const SinglePage_Movie = () => {
   const type = "movie";

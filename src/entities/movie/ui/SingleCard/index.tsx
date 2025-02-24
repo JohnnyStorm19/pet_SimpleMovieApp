@@ -8,9 +8,7 @@ import {
 import { getDirector } from "../../lib";
 import { getBudget, getRuntime } from "../../lib/dealWithCredits";
 import DirectedBy from "../DirectedBy";
-import style from "./MovieCard_Single.module.css";
-
-//todo ВСЕ РЕФАКТОРИТЬ НАХЕР
+import style from './MovieCard_Single.module.css';
 
 interface IMovieCard_SingleProps {
   searchResult: IRecievedMovieCard_SingleData;

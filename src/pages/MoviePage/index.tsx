@@ -12,41 +12,30 @@ import { Loader, MyError } from "@/shared/ui";
 import { IFormData } from "@/types/models";
 import { SearchSwitcher } from "@/widgets";
 import { Genres } from "@/widgets/Genres/ui";
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import style from "./MoviePage.module.css";
-
-// todo отрефакторить компонент!
+import { useGetSelectedGenresIds } from "./lib/hooks/useGetSelectedGenresIds";
 
 export const MoviePage = () => {
   const type = "movie";
   const [currentPage, setCurrentPage] = useState(0);
-  const { data: genres, isSuccess } = useGetGenres(type);
-  const { searchParams, currentParam: currentSearchType } = useGetSearchParams({
+  const { data: genres, isSuccess, isPending, isError } = useGetGenres(type);
+  const { currentParam: currentSearchType } = useGetSearchParams({
     getParam: "searchType",
     defaultParam: "keyword",
   });
   const [keyWord, setKeyWord] = useState({ searchInput: "" });
   const [searchedByKeywordRes, setSearchByKeywordRes] =
     useState<ISearchByResponse>();
-  const selectedGenresIds = useMemo((): number[] => {
-    const genresSelected = searchParams.get("genres");
-    const genresArray = genresSelected
-      ? genresSelected.split("+").map(Number)
-      : [];
 
-    if (genresArray.length > 0 && isSuccess) {
-      return genres
-        .filter((genre) => genresArray.includes(genre.id))
-        .map((genre) => genre.id);
-    }
+  const selectedGenresIds = useGetSelectedGenresIds({ isSuccess, genres });
 
-    return [];
-  }, [searchParams, genres, isSuccess]);
   const {
     data: searchedByGenreRes,
     isLoading: isSearchByGenrePending,
     isError: isSearchByGenreError,
   } = useSearchByGenre(selectedGenresIds, type, currentPage);
+
   const searchByKeyword = useSearchByKeyword(
     keyWord.searchInput,
     type,
@@ -75,7 +64,12 @@ export const MoviePage = () => {
       )}
 
       {currentSearchType === "genre" && isSuccess && (
-        <Genres contentType={type} />
+        <Genres
+          genres={genres}
+          isError={isError}
+          isPending={isPending}
+          isSuccess={isSuccess}
+        />
       )}
 
       {searchedByGenreRes && searchedByGenreRes.results.length > 0 && (
