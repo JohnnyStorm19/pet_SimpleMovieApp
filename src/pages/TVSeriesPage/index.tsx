@@ -2,52 +2,49 @@ import MyError from "@/components/Error/MyError";
 import ItemCardsList from "@/components/ItemCardsList/ItemCardsList";
 import SearchWidget from "@/components/SearchWidget/SearchWidget";
 import Pagination from "@/components/UI/Pagination/Pagination";
+import { useGetSearchParams } from "@/shared/hooks";
 import { useGetGenres } from "@/shared/hooks/use-get-genres";
 import { useSearchByGenre } from "@/shared/hooks/use-search-by-genre";
 import { useSearchByKeyword } from "@/shared/hooks/use-search-by-keyword";
-import { ISearchByResponse } from "@/shared/models/search-by-response.interface";
 import { Loader } from "@/shared/ui";
 import { IFormData } from "@/types/models";
 import { SearchSwitcher } from "@/widgets";
 import { Genres } from "@/widgets/Genres/ui";
-import React, { useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useGetSelectedGenresIds } from "./lib/hooks/useGetSelectedGenresIds";
 import style from "./TVseriesPage.module.css";
+
+//todo переделать пагинацию в url-параметры
 
 export const TVseriesPage = () => {
   const type = "tvSeries";
   const [currentPage, setCurrentPage] = useState(0);
-  // const [currentSearchType, setCurrentSearchType] = useState("keyword");
-  const { data: genres, isSuccess } = useGetGenres(type);
-  const [searchParams] = useSearchParams();
-  const currentSearchType = searchParams.get("searchType") || "keyword";
+  const { data: genres, isSuccess, isError, isPending } = useGetGenres(type);
+  const { currentParam: currentSearchType } = useGetSearchParams({
+    getParam: "searchType",
+    defaultParam: "keyword",
+  });
   const [keyWord, setKeyWord] = useState({ searchInput: "" });
-  const [searchedByKeywordRes, setSearchByKeywordRes] =
-    useState<ISearchByResponse>();
-  const selectedGenresIds = useMemo((): number[] => {
-    const genresSelected = searchParams.get("genres");
-    const genresArray = genresSelected
-      ? genresSelected.split("+").map(Number)
-      : [];
-
-    if (genresArray.length > 0 && isSuccess) {
-      return genres
-        .filter((genre) => genresArray.includes(genre.id))
-        .map((genre) => genre.id);
-    }
-
-    return [];
-  }, [searchParams, genres, isSuccess]);
+  const selectedGenresIds = useGetSelectedGenresIds({ isSuccess, genres });
   const {
     data: searchedByGenreRes,
     isLoading: isSearchByGenrePending,
     isError: isSearchByGenreError,
   } = useSearchByGenre(selectedGenresIds, type, currentPage);
-  const searchByKeyword = useSearchByKeyword(
-    keyWord.searchInput,
-    type,
-    currentPage
-  );
+  const {
+    data: searchedByKeywordRes,
+    refetch,
+    isLoading: searchByKeywordPending,
+  } = useSearchByKeyword(keyWord.searchInput, type, currentPage);
+
+  useEffect(() => {
+    if (keyWord.searchInput) {
+      refetch();
+    }
+  }, [currentPage, refetch, keyWord.searchInput]);
+
+  const paginationData =
+    currentSearchType === "keyword" ? searchedByKeywordRes : searchedByGenreRes;
 
   const handlePageClick = (e: { selected: React.SetStateAction<number> }) => {
     setCurrentPage(e.selected);
@@ -55,13 +52,12 @@ export const TVseriesPage = () => {
 
   const handleSubmitForm = async (formData: IFormData) => {
     setKeyWord(formData);
-    const res = await searchByKeyword.mutateAsync();
-    setSearchByKeywordRes(res);
+    refetch();
   };
 
   return (
     <div className={style.tv_container}>
-      {isSearchByGenrePending && <Loader />}
+      {isSearchByGenrePending || (searchByKeywordPending && <Loader />)}
       {isSearchByGenreError && <MyError />}
 
       <h2 className={style.pageTitle}>Serials / TV-shows</h2>
@@ -72,7 +68,12 @@ export const TVseriesPage = () => {
       )}
 
       {currentSearchType === "genre" && isSuccess && (
-        <Genres contentType={type} />
+        <Genres
+          genres={genres}
+          isError={isError}
+          isPending={isPending}
+          isSuccess={isSuccess}
+        />
       )}
 
       {searchedByGenreRes && searchedByGenreRes.results.length > 0 && (
@@ -88,30 +89,15 @@ export const TVseriesPage = () => {
         />
       )}
 
-      {searchedByGenreRes && searchedByGenreRes.total_pages && (
+      {paginationData?.total_pages && (
         <Pagination
           totalPageCount={
-            searchedByGenreRes.total_pages > 500
-              ? 500
-              : searchedByGenreRes.total_pages
+            paginationData.total_pages > 500 ? 500 : paginationData.total_pages
           }
           onPageChange={handlePageClick}
           forcePage={currentPage}
         />
       )}
-      {searchedByKeywordRes &&
-        searchedByKeywordRes.total_pages &&
-        currentSearchType === "keyword" && (
-          <Pagination
-            totalPageCount={
-              searchedByKeywordRes.total_pages > 500
-                ? 500
-                : searchedByKeywordRes.total_pages
-            }
-            onPageChange={handlePageClick}
-            forcePage={currentPage}
-          />
-        )}
     </div>
   );
 };

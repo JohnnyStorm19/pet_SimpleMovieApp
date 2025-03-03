@@ -6,6 +6,8 @@ import { Cast } from "@/widgets";
 import { useState } from "react";
 import style from "./index.module.css";
 
+//todo вынести details в widget TvSwitcher
+
 export const SinglePage_TVSeries = () => {
   const type = "tvSeries";
   const [isClickedCastBtn, setIsClickeCastdBtn] = useState(true);

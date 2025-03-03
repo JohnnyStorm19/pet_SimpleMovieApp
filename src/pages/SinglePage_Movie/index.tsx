@@ -9,6 +9,8 @@ import { Cast, Crew } from "@/widgets";
 import style from "./SinglePage_Movie.module.css";
 import { MovieCard_Single } from "@/entities/movie/ui/SingleCard";
 
+//todo вынести details в widget TvSwitcher
+
 export const SinglePage_Movie = () => {
   const type = "movie";
 

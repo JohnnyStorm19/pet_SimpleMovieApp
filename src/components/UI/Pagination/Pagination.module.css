@@ -17,14 +17,13 @@
   cursor: pointer;
 }
 
-/* .page:hover {
-    color: var(--main-font-color);
-    text-decoration: underline;
-} */
-
 .page__selected {
   color: var(--main-font-color);
   text-decoration: underline;
+}
+
+.previous, .next {
+  cursor: pointer;
 }
 
 @media (max-width: 576px) {
