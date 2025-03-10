@@ -1,6 +1,7 @@
 .card__container {
   position: relative;
   height: max-content;
+  cursor: pointer;
 }
 
 .card__container:hover {
