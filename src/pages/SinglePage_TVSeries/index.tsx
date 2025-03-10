@@ -1,18 +1,19 @@
 import { TvCard_Single, TVDetails, TVSeasons } from "@/entities/tv-series";
-import { useSearchById } from "@/shared/hooks";
-import { Loader, MyError, SwitcherBtn } from "@/shared/ui";
+import { DetailsSwitcher } from "@/features";
+import { useGetSearchParams, useSearchById } from "@/shared/hooks";
+import { Loader, MyError } from "@/shared/ui";
 import { ITvCard_Single } from "@/types/models";
 import { Cast } from "@/widgets";
-import { useState } from "react";
 import style from "./index.module.css";
-
-//todo вынести details в widget TvSwitcher
 
 export const SinglePage_TVSeries = () => {
   const type = "tvSeries";
-  const [isClickedCastBtn, setIsClickeCastdBtn] = useState(true);
-  const [isClickedDetailsBtn, setIsClickedDetailsBtn] = useState(false);
-  const [isClickedSeasonsBtn, setIsClickedSeasonsBtn] = useState(false);
+  const { currentParam, setCurrentParam, setSearchParams } = useGetSearchParams<
+    "cast" | "details" | "seasons"
+  >({
+    getParam: "details",
+    defaultParam: "cast",
+  });
 
   const {
     data: searchResult,
@@ -21,10 +22,9 @@ export const SinglePage_TVSeries = () => {
     isSuccess: searchSuccess,
   } = useSearchById(type);
 
-  const handleSwitch = (name: string) => {
-    setIsClickeCastdBtn(name === "cast");
-    setIsClickedDetailsBtn(name === "details");
-    setIsClickedSeasonsBtn(name === "seasons");
+  const handleBtnClick = (name: "cast" | "details" | "seasons") => {
+    setCurrentParam(name);
+    setSearchParams({ details: name });
   };
 
   return (
@@ -35,34 +35,19 @@ export const SinglePage_TVSeries = () => {
       {searchSuccess && (
         <TvCard_Single searchResult={searchResult as ITvCard_Single} />
       )}
-      <>
-        <div className={style.details_menu}>
-          <SwitcherBtn
-            handleBtnClick={handleSwitch}
-            isClicked={isClickedCastBtn}
-            name="cast"
-          >
-            Cast
-          </SwitcherBtn>
-          <SwitcherBtn
-            handleBtnClick={handleSwitch}
-            name="details"
-            isClicked={isClickedDetailsBtn}
-          >
-            Details
-          </SwitcherBtn>
-          <SwitcherBtn
-            handleBtnClick={handleSwitch}
-            name="seasons"
-            isClicked={isClickedSeasonsBtn}
-          >
-            Seasons
-          </SwitcherBtn>
-        </div>
-        {isClickedCastBtn && <Cast key="cast" type={type} />}
-        {isClickedDetailsBtn && <TVDetails key="details" />}
-        {isClickedSeasonsBtn && <TVSeasons key="seasons" />}
-      </>
+
+      <DetailsSwitcher
+        activeSwitcher={currentParam}
+        onSwitch={handleBtnClick}
+        options={[
+          { value: "cast", label: "Cast" },
+          { value: "details", label: "Details" },
+          { value: "seasons", label: "Seasons" },
+        ]}
+      />
+      {currentParam === "cast" && <Cast key="cast" type={type} />}
+      {currentParam === "details" && <TVDetails key="details" />}
+      {currentParam === "seasons" && <TVSeasons key="seasons" />}
     </div>
   );
 };

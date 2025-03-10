@@ -5,13 +5,6 @@
     position: relative;
 }
 
-.details_menu {
-    width: fit-content;
-    margin: 0 auto;
-    border: 2px solid #FFFFFF;
-    border-radius: 10px;
-}
-
 .switcher__btn {
     padding: 10px 10px;
     border: none;

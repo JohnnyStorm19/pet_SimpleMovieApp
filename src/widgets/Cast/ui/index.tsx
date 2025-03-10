@@ -6,7 +6,9 @@ import style from "./index.module.css";
 import { TGenresFor } from "@/types/models"; // todo перенести в shared или в соответствующий entity
 import { ICreditsCast } from "@/entities/cast/model/types.interface";
 
-export const Cast = ({ type }: { type: TGenresFor }) => {
+export type TCastProps = Exclude<TGenresFor, "trending">;
+
+export const Cast = ({ type }: { type: TCastProps }) => {
   const location = useLocation();
 
   const {

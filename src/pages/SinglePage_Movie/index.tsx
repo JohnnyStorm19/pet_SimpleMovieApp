@@ -1,22 +1,24 @@
+import { MovieCard_Single } from "@/entities/movie/ui/SingleCard";
+import { DetailsSwitcher } from "@/features";
 import {
   useGetCredits,
   useGetSearchParams,
   useSearchById,
 } from "@/shared/hooks";
-import { Loader, MyError, SwitcherBtn } from "@/shared/ui";
+import { Loader, MyError } from "@/shared/ui";
 import { IRecievedMovieCard_SingleData } from "@/types/models";
 import { Cast, Crew } from "@/widgets";
 import style from "./SinglePage_Movie.module.css";
-import { MovieCard_Single } from "@/entities/movie/ui/SingleCard";
-
-//todo вынести details в widget TvSwitcher
 
 export const SinglePage_Movie = () => {
   const type = "movie";
 
-  const { currentParam, setCurrentParam, setSearchParams } = useGetSearchParams(
-    { getParam: "details", defaultParam: "cast" }
-  );
+  const { currentParam, setCurrentParam, setSearchParams } = useGetSearchParams<
+    "cast" | "crew"
+  >({
+    getParam: "details",
+    defaultParam: "cast",
+  });
 
   const {
     data: searchResult,
@@ -32,7 +34,7 @@ export const SinglePage_Movie = () => {
     isSuccess: creditsSuccess,
   } = useGetCredits(type);
 
-  const handleBtnClick = (name: string) => {
+  const handleBtnClick = (name: "cast" | "crew") => {
     setCurrentParam(name);
     setSearchParams({ details: name });
   };
@@ -48,24 +50,18 @@ export const SinglePage_Movie = () => {
           credits={credits}
         />
       )}
-      <>
-        <div className={style.details_menu}>
-          <SwitcherBtn
-            handleBtnClick={() => handleBtnClick("cast")}
-            isClicked={currentParam === "cast"}
-          >
-            Cast
-          </SwitcherBtn>
-          <SwitcherBtn
-            handleBtnClick={() => handleBtnClick("crew")}
-            isClicked={currentParam === "crew"}
-          >
-            Crew
-          </SwitcherBtn>
-        </div>
-        {currentParam === "cast" && <Cast type={type} />}
-        {currentParam === "crew" && <Crew type={type} />}
-      </>
+      
+      <DetailsSwitcher
+        activeSwitcher={currentParam}
+        onSwitch={handleBtnClick}
+        options={[
+          { value: "cast", label: "Cast" },
+          { value: "crew", label: "Crew" },
+        ]}
+      />
+
+      {currentParam === "cast" && <Cast type={type} />}
+      {currentParam === "crew" && <Crew type={type} />}
     </div>
   );
 };

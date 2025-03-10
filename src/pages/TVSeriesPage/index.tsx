@@ -20,7 +20,7 @@ export const TVseriesPage = () => {
   const type = "tvSeries";
   const [currentPage, setCurrentPage] = useState(0);
   const { data: genres, isSuccess, isError, isPending } = useGetGenres(type);
-  const { currentParam: currentSearchType } = useGetSearchParams({
+  const { currentParam: currentSearchType } = useGetSearchParams<"keyword" | "genre">({
     getParam: "searchType",
     defaultParam: "keyword",
   });

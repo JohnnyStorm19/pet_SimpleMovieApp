@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-interface IUseGetSearchParams {
+interface IUseGetSearchParams<T> {
   getParam: string;
-  defaultParam: string;
+  defaultParam: T;
 }
 
-export const useGetSearchParams = ({
+export const useGetSearchParams = <T extends string>({
   getParam,
   defaultParam,
-}: IUseGetSearchParams) => {
+}: IUseGetSearchParams<T>) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [currentParam, setCurrentParam] = useState(
-    searchParams.get(getParam) || defaultParam
+  const [currentParam, setCurrentParam] = useState<T>(
+    (searchParams.get(getParam) as T) || defaultParam
   );
 
   useEffect(() => {
-    setCurrentParam(searchParams.get(getParam) || defaultParam);
+    setCurrentParam((searchParams.get(getParam) as T) || defaultParam);
   }, [searchParams, getParam, defaultParam]);
 
   return { searchParams, currentParam, setCurrentParam, setSearchParams };

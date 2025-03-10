@@ -21,7 +21,9 @@ export const MoviePage = () => {
   const type = "movie";
   const [currentPage, setCurrentPage] = useState(0);
   const { data: genres, isSuccess, isPending, isError } = useGetGenres(type);
-  const { currentParam: currentSearchType } = useGetSearchParams({
+  const { currentParam: currentSearchType } = useGetSearchParams<
+    "keyword" | "genre"
+  >({
     getParam: "searchType",
     defaultParam: "keyword",
   });
@@ -44,7 +46,7 @@ export const MoviePage = () => {
   useEffect(() => {
     if (keyWord.searchInput) {
       console.log("refetch");
-      
+
       refetch();
     }
   }, [currentPage, refetch, keyWord.searchInput]);
