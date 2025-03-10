@@ -3,7 +3,9 @@ import { ICreditsCrew, TGenresFor } from "../../../types/models";
 import { useGetCredits } from "@/shared/hooks";
 import { CrewJobsGroup } from "./crew-job-group";
 
-export const Crew = ({ type }: { type: TGenresFor }) => {
+type TCrewProps = Exclude<TGenresFor, "trending">;
+
+export const Crew = ({ type }: { type: TCrewProps }) => {
   const {
     data: credits,
     isLoading: creditsLoader,

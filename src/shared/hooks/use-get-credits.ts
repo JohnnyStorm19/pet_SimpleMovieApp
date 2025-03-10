@@ -12,7 +12,6 @@ export const useGetCredits = (
 ) => {
   const [requestConfigFunction, setRequestConfig] =
     useState<AxiosRequestConfig | null>(null);
-  // console.log("page is: ", requestedPage);
   const { id: idParam } = useParams();
   const id = idParam ? Number(idParam) : undefined;
 
