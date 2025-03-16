@@ -1,5 +1,6 @@
-export { Loader } from "./Loader";
 export { MyError } from "./Error";
-export { SwitcherBtn } from "./SwitcherBtn";
+export { FormInput } from "./FormInput";
+export { Loader } from "./Loader";
 export { PageTitle } from "./PageTitle";
 export { ProjectRating } from "./ProjectRating";
+export { SwitcherBtn } from "./SwitcherBtn";

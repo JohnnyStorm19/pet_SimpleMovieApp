@@ -1,0 +1,70 @@
+.form_container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: fit-content;
+  margin-inline: auto;
+}
+
+.form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: #d3d3d3;
+}
+
+.formError {
+  outline: 1.5px solid var(--error-color);
+}
+
+.searching_glass {
+  width: 25px;
+  height: 25px;
+  background-image: url("../../../assets/searching-glass.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 25px;
+}
+
+.send_btn {
+  width: 25px;
+  height: 25px;
+  border: none;
+  background-image: url("../../../assets/send-icon.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 25px;
+  background-color: inherit;
+  cursor: pointer;
+}
+.send_btn:hover {
+  transform: scale(1.1);
+}
+.send_btn:active {
+  transform: scale(0.9);
+}
+
+.formErrorText {
+  color: var(--error-color);
+  width: fit-content;
+  margin-inline: auto;
+}
+
+@media (max-width: 576px) {
+  .form {
+    padding-inline: 10px;
+  }
+  .searching_glass {
+    width: 15px;
+    height: 15px;
+    background-size: 15px;
+  }
+  .send_btn {
+    width: 15px;
+    height: 15px;
+    background-size: 15px;
+  }
+}

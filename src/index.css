@@ -3,6 +3,8 @@
   --main-font-family: 'Changa One', sans-serif;
   --btn-font-family: 'Alata', sans-serif;
   --main-font-color: #FFC200;
+  --error-color: #DB5757;
+
   --page-title-font-size: 4rem;
 
   font-family: var(--main-font-family);

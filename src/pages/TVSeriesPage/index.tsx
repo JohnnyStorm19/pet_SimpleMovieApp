@@ -1,17 +1,16 @@
 import MyError from "@/components/Error/MyError";
 import ItemCardsList from "@/components/ItemCardsList/ItemCardsList";
-import SearchWidget from "@/components/SearchWidget/SearchWidget";
 import { useGetSearchParams } from "@/shared/hooks";
 import { useGetGenres } from "@/shared/hooks/use-get-genres";
 import { useSearchByGenre } from "@/shared/hooks/use-search-by-genre";
 import { useSearchByKeyword } from "@/shared/hooks/use-search-by-keyword";
 import { Loader } from "@/shared/ui";
-import { IFormData } from "@/types/models";
-import { Pagination, SearchSwitcher } from "@/widgets";
+import { Pagination, SearchSwitcher, SearchForm } from "@/widgets";
 import { Genres } from "@/widgets/Genres/ui";
 import React, { useEffect, useState } from "react";
 import { useGetSelectedGenresIds } from "./lib/hooks/useGetSelectedGenresIds";
 import style from "./TVseriesPage.module.css";
+import { ISearchFormData } from "@/widgets/SearchForm/model/types";
 
 //todo переделать пагинацию в url-параметры
 
@@ -51,7 +50,7 @@ export const TVseriesPage = () => {
     setCurrentPage(e.selected);
   };
 
-  const handleSubmitForm = async (formData: IFormData) => {
+  const handleSubmitForm = async (formData: ISearchFormData) => {
     setKeyWord(formData);
     refetch();
   };
@@ -65,7 +64,7 @@ export const TVseriesPage = () => {
       <SearchSwitcher />
 
       {currentSearchType === "keyword" && (
-        <SearchWidget onFormSubmit={handleSubmitForm} />
+        <SearchForm onFormSubmit={handleSubmitForm} />
       )}
 
       {currentSearchType === "genre" && isSuccess && (

@@ -10,14 +10,6 @@ export interface ISelectedGenre {
 
 export type TGenresFor = "movie" | "tvSeries" | "trending";
 
-export interface IFormData {
-  searchInput: string;
-}
-
-export interface ISearchWidgetProps {
-  onFormSubmit: (formData: IFormData) => void;
-}
-
 interface ICollection {
   id: number;
   name: string;

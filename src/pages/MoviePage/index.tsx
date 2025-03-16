@@ -1,4 +1,3 @@
-import SearchWidget from "@/components/SearchWidget/SearchWidget";
 import { ItemCardsList } from "@/entities/item-card";
 import {
   useGetGenres,
@@ -7,11 +6,11 @@ import {
   useSearchByKeyword,
 } from "@/shared/hooks";
 import { Loader, MyError } from "@/shared/ui";
-import { IFormData } from "@/types/models";
-import { Genres, Pagination, SearchSwitcher } from "@/widgets";
+import { Genres, Pagination, SearchSwitcher, SearchForm } from "@/widgets";
 import React, { useEffect, useState } from "react";
 import style from "./MoviePage.module.css";
 import { useGetSelectedGenresIds } from "./lib/hooks/useGetSelectedGenresIds";
+import { ISearchFormData } from "@/widgets/SearchForm/model/types";
 
 //todo переделать пагинацию в url-параметры
 
@@ -43,8 +42,6 @@ export const MoviePage = () => {
 
   useEffect(() => {
     if (keyWord.searchInput) {
-      console.log("refetch");
-
       refetch();
     }
   }, [currentPage, refetch, keyWord.searchInput]);
@@ -56,7 +53,7 @@ export const MoviePage = () => {
     setCurrentPage(e.selected);
   };
 
-  const handleSubmitForm = async (formData: IFormData) => {
+  const handleSubmitForm = async (formData: ISearchFormData) => {
     setKeyWord(formData);
     refetch();
   };
@@ -69,7 +66,7 @@ export const MoviePage = () => {
       <SearchSwitcher />
 
       {currentSearchType === "keyword" && (
-        <SearchWidget onFormSubmit={handleSubmitForm} />
+        <SearchForm onFormSubmit={handleSubmitForm} />
       )}
 
       {currentSearchType === "genre" && isSuccess && (
