@@ -1,4 +1,4 @@
-import ItemCardsList from "@/components/ItemCardsList/ItemCardsList";
+import { ItemCardsList } from "@/entities/item-card";
 import SearchWidget from "@/components/SearchWidget/SearchWidget";
 import Pagination from "@/components/UI/Pagination/Pagination";
 import {

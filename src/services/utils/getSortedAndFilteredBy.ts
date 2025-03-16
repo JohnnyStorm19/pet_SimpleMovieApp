@@ -17,6 +17,8 @@ export const getSortedByReleaseDate = (
   data: ICombinedCast[] | ICombinedCrew[],
   sortType: TSortedDateType = "newest"
 ) => {
+  if (!data) return [];
+
   return [
     ...data.sort((a, b) => {
       let aDate = 0;
@@ -49,6 +51,7 @@ export const getFilteredByType = (
   data: (ICombinedCast | ICombinedCrew)[],
   filterType: TFilteredType = "all"
 ) => {
+  if (!data) return [];
   if (filterType === "all") {
     return data;
   }
@@ -59,6 +62,7 @@ export const getFilteredByJob = (
   data: (ICombinedCast | ICombinedCrew)[],
   filterType: string
 ) => {
+  if (!data) return [];
   return [
     ...data.filter((item) => {
       if ("job" in item) {
@@ -76,15 +80,15 @@ export const getFilteredAndSortedArrayOfCards = ({
 }: IgetFilteredAndSortedArrayOfCards) => {
   let sortedArray;
   let filteredByTypeArray;
+  if (!data) return [];
 
   if (filterJobType === "Actor") {
     sortedArray = getSortedByReleaseDate(data.cast, sortType);
     filteredByTypeArray = getFilteredByType(sortedArray, filterContentType);
     return filteredByTypeArray;
-  } else {
-    sortedArray = getSortedByReleaseDate(data.crew, sortType);
-    filteredByTypeArray = getFilteredByType(sortedArray, filterContentType);
-    const filteredByJob = getFilteredByJob(filteredByTypeArray, filterJobType);
-    return filteredByJob;
   }
+  sortedArray = getSortedByReleaseDate(data.crew, sortType);
+  filteredByTypeArray = getFilteredByType(sortedArray, filterContentType);
+  const filteredByJob = getFilteredByJob(filteredByTypeArray, filterJobType);
+  return filteredByJob;
 };

@@ -8,7 +8,6 @@
 
 .personPage_content_wrapper {
   display: flex;
-  gap: 2rem;
   justify-content: space-between;
 }
 
@@ -44,10 +43,14 @@
   color: #999999;
 }
 
-.img_container,
-.img_container img {
+.img_container {
   max-width: 300px;
-  height: 450px;
+  max-height: 450px;
+
+  & img {
+    max-width: 100%;
+    object-fit: cover;
+  }
 }
 
 .biography_container {
@@ -76,8 +79,8 @@
   .img_container,
   .img_container img {
     margin: 0 auto;
-    width: 200px;
-    height: 300px;
+    max-width: 200px;
+    max-height: 300px;
   }
 }
 
@@ -97,7 +100,7 @@
     order: 1;
   }
   .biography_container {
-    width: 250px;
+    max-width: 250px;
     margin: 0 auto;
   }
 

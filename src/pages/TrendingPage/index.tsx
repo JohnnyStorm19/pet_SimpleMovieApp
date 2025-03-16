@@ -1,27 +1,32 @@
 // import { useTrendings } from "@/hooks/useTrendings";
 import MyError from "@/components/Error/MyError";
-import ItemCardsList from "@/components/ItemCardsList/ItemCardsList";
 import Pagination from "@/components/UI/Pagination/Pagination";
+import { ItemCardsList } from "@/entities/item-card";
 import { useGetTrendingItems } from "@/shared/hooks/use-get-trending-items";
 import { Loader } from "@/shared/ui";
 import { TrendingSwitcher } from "@/widgets";
-import { useState } from "react";
-import style from "./TrendingPage.module.css";
-import { useSearchParams } from "react-router-dom";
 import {
   TContentSwitcher,
   TPeriodSwitcher,
 } from "@/widgets/TrendingSwitcher/model/switcher-options.type";
+import { useState } from "react";
+import style from "./TrendingPage.module.css";
+import { useGetSearchParams } from "@/shared/hooks";
 
 export const TrendingPage = () => {
   const mainType = "trending";
   const [currentPage, setCurrentPage] = useState(0);
-  const [searchParams] = useSearchParams();
 
-  const contentSwitcherValue = (searchParams.get("contentType") ||
-    "all") as TContentSwitcher;
-  const periodSwitcherValue = (searchParams.get("period") ||
-    "week") as TPeriodSwitcher;
+  const { currentParam: contentSwitcherValue } =
+    useGetSearchParams<TContentSwitcher>({
+      getParam: "contentType",
+      defaultParam: "all",
+    });
+  const { currentParam: periodSwitcherValue } =
+    useGetSearchParams<TPeriodSwitcher>({
+      getParam: "period",
+      defaultParam: "week",
+    });
 
   const {
     data: trendingData,
@@ -65,12 +70,3 @@ export const TrendingPage = () => {
     </>
   );
 };
-
-// const [shouldSearch, setShouldSearch] = useState(true);
-// const [{ trendingData, isLoading, error }] = useTrendings(
-//   currentPage,
-//   periodSwitcherValue,
-//   contentSwitcherValue,
-//   shouldSearch,
-//   setShouldSearch
-// );

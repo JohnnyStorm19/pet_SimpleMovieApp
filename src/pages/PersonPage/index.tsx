@@ -1,20 +1,15 @@
 import MyError from "@/components/Error/MyError";
-import ItemCardsList from "@/components/ItemCardsList/ItemCardsList";
 import Loader from "@/components/Loader/Loader";
 import PersonBiography from "@/components/PersonBiography/PersonBiography";
 import SortingSwitcher from "@/components/UI/SortingSwitcher/SortingSwitcher";
+import { ItemCardsList } from "@/entities/item-card";
 import { useGetCredits } from "@/hooks/useGetCredits";
 import { useSearchById } from "@/hooks/useSearchById";
 import { REQUEST_URLS } from "@/services/api/requestApi";
-import { getPersonsJob } from "@/services/utils/getPersonsJob";
-import { getFilteredAndSortedArrayOfCards } from "@/services/utils/getSortedAndFilteredBy";
-import { ICombinedCast, ICombinedCrew } from "@/types/models";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import style from "./PersonPage.module.css";
-
-type TContentType = "movie" | "tv" | "all";
-type TProjectTime = "newest" | "earliest" | "";
+import { useGetPersonPageData } from "./lib/hooks/useGetPersonPageData";
 
 export const PersonPage = () => {
   const personSearchType = "personBio";
@@ -22,19 +17,9 @@ export const PersonPage = () => {
 
   const [shouldSearchBio, setShouldSearchBio] = useState(true);
   const [shouldSearchCredits, setShouldSearchCredits] = useState(true);
-  const [sortByJob, setSortByJob] = useState("");
-  const [sortByProjectTime, setSortByProjectTime] = useState<
-    "newest" | "earliest" | ""
-  >("newest");
-  const [sortByContentType, setSortByContentType] = useState<
-    "movie" | "tv" | "all"
-  >("all");
 
   const { id } = useParams();
-  let numberId;
-  if (id) {
-    numberId = Number(id);
-  }
+  const numberId = id ? Number(id) : undefined;
 
   const [{ searchResult, searchLoader, searchError }] = useSearchById(
     personSearchType,
@@ -48,16 +33,14 @@ export const PersonPage = () => {
     shouldSearchCredits,
     setShouldSearchCredits
   );
-
-  const sortingSwitcherChangeHandler = (
-    job: string,
-    projectTime: TProjectTime,
-    contentType: TContentType
-  ) => {
-    setSortByJob(job);
-    setSortByProjectTime(projectTime);
-    setSortByContentType(contentType);
-  };
+  const {
+    cardsListDataByActorFiltered,
+    cardsListDataByOthersFiltered,
+    projectCount,
+    personsJob,
+    sortByJob,
+    sortingSwitcherChangeHandler,
+  } = useGetPersonPageData({ credits });
 
   return (
     <div className={style.personPage_container}>
@@ -71,56 +54,22 @@ export const PersonPage = () => {
         <div className={style.personPage_content_wrapper}>
           <section className={style.projects_section}>
             <SortingSwitcher
-              options={getPersonsJob(
-                credits.crew as ICombinedCrew[],
-                credits.cast as ICombinedCast[]
-              )}
+              options={personsJob}
               onChangeHandler={sortingSwitcherChangeHandler}
             />
 
             <div>
               <div className={style.projects_count}>
-                Projects:{" "}
-                {
-                  getFilteredAndSortedArrayOfCards({
-                    data: {
-                      cast: credits.cast as ICombinedCast[],
-                      crew: credits.crew as ICombinedCrew[],
-                    },
-                    sortType: sortByProjectTime,
-                    filterContentType: sortByContentType,
-                    filterJobType: sortByJob,
-                  }).length
-                }
+                Projects: {projectCount}
               </div>
               {sortByJob === "Actor" ? (
                 <ItemCardsList
-                  recievedData={
-                    getFilteredAndSortedArrayOfCards({
-                      data: {
-                        cast: credits.cast as ICombinedCast[],
-                        crew: credits.crew as ICombinedCrew[],
-                      },
-                      sortType: sortByProjectTime,
-                      filterContentType: sortByContentType,
-                      filterJobType: "Actor",
-                    }) as ICombinedCrew[] | ICombinedCast[]
-                  }
+                  recievedData={cardsListDataByActorFiltered}
                   mainType={creditsType}
                 />
               ) : (
                 <ItemCardsList
-                  recievedData={
-                    getFilteredAndSortedArrayOfCards({
-                      data: {
-                        cast: credits.cast as ICombinedCast[],
-                        crew: credits.crew as ICombinedCrew[],
-                      },
-                      sortType: sortByProjectTime,
-                      filterContentType: sortByContentType,
-                      filterJobType: sortByJob,
-                    }) as ICombinedCrew[] | ICombinedCast[]
-                  }
+                  recievedData={cardsListDataByOthersFiltered}
                   mainType={creditsType}
                 />
               )}
