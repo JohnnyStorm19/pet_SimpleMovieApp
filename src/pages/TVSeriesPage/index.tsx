@@ -1,14 +1,13 @@
 import MyError from "@/components/Error/MyError";
 import ItemCardsList from "@/components/ItemCardsList/ItemCardsList";
 import SearchWidget from "@/components/SearchWidget/SearchWidget";
-import Pagination from "@/components/UI/Pagination/Pagination";
 import { useGetSearchParams } from "@/shared/hooks";
 import { useGetGenres } from "@/shared/hooks/use-get-genres";
 import { useSearchByGenre } from "@/shared/hooks/use-search-by-genre";
 import { useSearchByKeyword } from "@/shared/hooks/use-search-by-keyword";
 import { Loader } from "@/shared/ui";
 import { IFormData } from "@/types/models";
-import { SearchSwitcher } from "@/widgets";
+import { Pagination, SearchSwitcher } from "@/widgets";
 import { Genres } from "@/widgets/Genres/ui";
 import React, { useEffect, useState } from "react";
 import { useGetSelectedGenresIds } from "./lib/hooks/useGetSelectedGenresIds";
@@ -20,7 +19,9 @@ export const TVseriesPage = () => {
   const type = "tvSeries";
   const [currentPage, setCurrentPage] = useState(0);
   const { data: genres, isSuccess, isError, isPending } = useGetGenres(type);
-  const { currentParam: currentSearchType } = useGetSearchParams<"keyword" | "genre">({
+  const { currentParam: currentSearchType } = useGetSearchParams<
+    "keyword" | "genre"
+  >({
     getParam: "searchType",
     defaultParam: "keyword",
   });

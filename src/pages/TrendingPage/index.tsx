@@ -1,10 +1,9 @@
 // import { useTrendings } from "@/hooks/useTrendings";
 import MyError from "@/components/Error/MyError";
-import Pagination from "@/components/UI/Pagination/Pagination";
 import { ItemCardsList } from "@/entities/item-card";
 import { useGetTrendingItems } from "@/shared/hooks/use-get-trending-items";
 import { Loader } from "@/shared/ui";
-import { TrendingSwitcher } from "@/widgets";
+import { TrendingSwitcher, Pagination } from "@/widgets";
 import {
   TContentSwitcher,
   TPeriodSwitcher,

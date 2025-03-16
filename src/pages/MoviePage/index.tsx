@@ -1,6 +1,5 @@
-import { ItemCardsList } from "@/entities/item-card";
 import SearchWidget from "@/components/SearchWidget/SearchWidget";
-import Pagination from "@/components/UI/Pagination/Pagination";
+import { ItemCardsList } from "@/entities/item-card";
 import {
   useGetGenres,
   useGetSearchParams,
@@ -9,8 +8,7 @@ import {
 } from "@/shared/hooks";
 import { Loader, MyError } from "@/shared/ui";
 import { IFormData } from "@/types/models";
-import { SearchSwitcher } from "@/widgets";
-import { Genres } from "@/widgets/Genres/ui";
+import { Genres, Pagination, SearchSwitcher } from "@/widgets";
 import React, { useEffect, useState } from "react";
 import style from "./MoviePage.module.css";
 import { useGetSelectedGenresIds } from "./lib/hooks/useGetSelectedGenresIds";
